@@ -55,7 +55,7 @@ class Scraper {
   <<abstract>>
   #objeto_scrapear: str
 
-  +__init__(objeto_scrapear: str) -> None
+  __init__(objeto_scrapear: str) -> None
   +parsear_json() -> Json
   +buscar_nombre() -> str
   +buscar_marca() -> str
@@ -66,15 +66,15 @@ class Scraper {
 }
 
 class EbayScraper {
-  +__init__() -
+  __init__() 
 }
 
 class MercadoLibreScraper {
-  +__init__() 
+  __init__() 
 }
 
 class PanamericanaScraper {
-  +__init__() 
+  __init__() 
 }
 
 Scraper <|-- EbayScraper
@@ -97,15 +97,15 @@ class Producto {
   #plataforma: str
   #descuento: float
 
-  +__init__() 
-  +__str__() 
+  __init__() 
+  __str__() 
 }
 
 class Filtro {
   #productos_filtrar: list[Producto]
   #parametros_filtrar: dict
 
-  +__init__(productos: list[Producto], parametros: dict) 
+  __init__(productos: list[Producto], parametros: dict) 
   +filtrar_por_nombres() -> list[Producto]
   +filtrar_por_marcas() -> list[Producto]
   +filtrar_por_precios() -> list[Producto]
@@ -115,14 +115,11 @@ class Filtro {
 class MostrarProductos {
   #filtro: Filtro
 
-  +__init__(filtro: Filtro) 
+  __init__(filtro: Filtro) 
   +escribir_productos() 
   +mostrar_productos() 
 }
 
-class Usuario {
-  +usar_aplicacion()
-}
 
 Filtro --> Producto : usa
 MostrarProductos --> Filtro : usa
