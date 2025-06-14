@@ -55,7 +55,7 @@ class Scraper {
   <<abstract>>
   #objeto_scrapear: str
 
-  __init__(objeto_scrapear: str) -> None
+  __init__(objeto_scrapear: str) 
   +parsear_json() -> Json
   +buscar_nombre() -> str
   +buscar_marca() -> str
