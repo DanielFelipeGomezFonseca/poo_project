@@ -127,4 +127,5 @@ Usuario --> MostrarProductos : usa
 
 
 ```
-Solucion preliminar
+##Solucion preliminar
+Uso de librerias: Request y Beatiful Soap
