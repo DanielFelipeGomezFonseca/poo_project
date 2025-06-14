@@ -3,6 +3,7 @@
 ## Descripción del Proyecto
 
 Este proyecto consiste en una aplicación basada en un sistema de web scraping, cuyo objetivo es filtrar la búsqueda de periféricos para computadoras de acuerdo con los criterios y preferencias proporcionados por el usuario. Los perifericos en especifico seran los audifonos, los teclados y los "mouse"
+![image](https://github.com/user-attachments/assets/2d20bd50-7be8-453e-b9af-646cdd542c49)
 
 Las variables que se tienen en cuenta son:
 
