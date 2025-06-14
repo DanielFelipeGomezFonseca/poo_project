@@ -1,4 +1,6 @@
-# SearchWhileRest
+# Nombre del equipo-Alternativa definida: Serial Experiments POO - Alternativa 2
+
+# Nombre del proyecto: Search While Rest
 
 ## Descripción del Proyecto
 
