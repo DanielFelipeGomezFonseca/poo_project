@@ -127,3 +127,4 @@ Usuario --> MostrarProductos : usa
 
 
 ```
+Solucion preliminar
