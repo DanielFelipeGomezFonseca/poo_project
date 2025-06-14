@@ -17,10 +17,13 @@ Las variables que se tienen en cuenta son:
 - Funcionalidades
 
 
-La aplicación facilita la búsqueda de productos para el usuario. Para ello, realiza la recolección de datos desde plataformas de comercio electrónico como MercadoLibre, Ebay, Panamericana, 
+La aplicación facilita la búsqueda de productos para el usuario. Para ello, realiza la recolección de datos desde plataformas de comercio electrónico como MercadoLibre, Ebay, Panamericana.
+
+
 ## Por que se eligio
 
 En algunas ocaciones se pierde mucho tiempo al buscar este tipo de perifericos, puesto que en cada pagina los precios varian, y pueden haber descuento o cobrar por envio, es por esto que es mejor hacer un "scrapper" que pueda ahorrar tiempo a este tipo de productos. 
+![image](https://github.com/user-attachments/assets/1e49e1f9-ec8f-417a-b000-44348ff5b7c1)
 
 
 
