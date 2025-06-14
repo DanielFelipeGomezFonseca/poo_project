@@ -31,47 +31,102 @@ En algunas ocaciones se pierde mucho tiempo al buscar este tipo de perifericos, 
 
 
 
-## Diagrama de Clases
+## Diagrama de Clase 1: Funcionamiento del scrapper
 
 ```mermaid
+---
+title: Scrapers
+---
 classDiagram
 
 class Producto {
-  - String nombre
-  - float precio
-  - String marca
-  - bool envio_gratis
-  - String url
-  - String plataforma
+  #nombre: str
+  #precio: float
+  #marca: str
+  #url: str
+  #plataforma: str
+  #descuento: float
+
+  +__init__() 
+  +__str__() 
 }
 
 class Scraper {
   <<abstract>>
-  + List~Producto~ extraer_productos(String tipo)
+  #objeto_scrapear: str
+
+  +__init__(objeto_scrapear: str) -> None
+  +parsear_json() -> Json
+  +buscar_nombre() -> str
+  +buscar_marca() -> str
+  +buscar_precio() -> float
+  +buscar_descuentos() -> float
+  +crear_producto() -> Producto
+  +guardar_producto(p: Producto) -> list[Producto]
 }
 
 class EbayScraper {
-  + List~Producto~ extraer_productos(String tipo)
+  +__init__() -
 }
 
 class MercadoLibreScraper {
-  + List~Producto~ extraer_productos(String tipo)
+  +__init__() 
 }
 
-class Filtro {
-  + List~Producto~ filtrar(List~Producto~, Dict criterios)
-}
-
-class BuscadorProductos {
-  - List~Scraper~ scrapers
-  + List~Producto~ buscar(String tipo, Dict criterios)
+class PanamericanaScraper {
+  +__init__() 
 }
 
 Scraper <|-- EbayScraper
 Scraper <|-- MercadoLibreScraper
+Scraper <|-- PanamericanaScraper
+```
+## Diagrama de Clase 2: Relacion con el usario
+```mermaid
 
-BuscadorProductos --> Scraper : usa
-BuscadorProductos --> Filtro : usa
-Filtro --> Producto : filtra
-Scraper --> Producto : extrae
+---
+title: Filtro y Usuario
+---
+classDiagram
+
+class Producto {
+  #nombre: str
+  #precio: float
+  #marca: str
+  #url: str
+  #plataforma: str
+  #descuento: float
+
+  +__init__() 
+  +__str__() 
+}
+
+class Filtro {
+  #productos_filtrar: list[Producto]
+  #parametros_filtrar: dict
+
+  +__init__(productos: list[Producto], parametros: dict) 
+  +filtrar_por_nombres() -> list[Producto]
+  +filtrar_por_marcas() -> list[Producto]
+  +filtrar_por_precios() -> list[Producto]
+  +filtrar_por_descuento() -> list[Producto]
+}
+
+class MostrarProductos {
+  #filtro: Filtro
+
+  +__init__(filtro: Filtro) 
+  +escribir_productos() 
+  +mostrar_productos() 
+}
+
+class Usuario {
+  +usar_aplicacion()
+}
+
+Filtro --> Producto : usa
+MostrarProductos --> Filtro : usa
+Usuario --> MostrarProductos : usa
+
+
 ```
