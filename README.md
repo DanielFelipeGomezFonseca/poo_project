@@ -125,7 +125,7 @@ Filtro --> Producto : usa
 MostrarProductos --> Filtro : usa
 Usuario --> MostrarProductos : usa
 
-
 ```
-##Solucion preliminar
+
+## Solucion preliminar
 Uso de librerias: Request y Beatiful Soap
