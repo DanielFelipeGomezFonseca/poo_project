@@ -133,9 +133,10 @@ Porque?
 Porque es un formato muy facil de entender, de manejar y es el formato defecto de las APIs :)
 
 Uso de librerias: Request y Beatiful Soap:
--Requests: se usa para obtener el contenido de la web haciendo una peticion  HTTP, y luego poderlo parsear usando otra libreria
+-Requests: se usa para obtener el contenido de la web haciendo una peticion  HTTP, y luego poderlo parsear usando otra libreria. Esta libreria es muy buena y muy confiable
 
--BeatifulSoap: Esto se usa para parsear las paginas web, es decir para  analizar y extraer el json del html. 
+-BeatifulSoap: Esto se usa para parsear las paginas web, es decir para  analizar y extraer el json del html, en caso de que se nescecite. La libreria es ampliamente utilizada y recomendada, ademas no es dificil de utilizar
+
 
 
 
