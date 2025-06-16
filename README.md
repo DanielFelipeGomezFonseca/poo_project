@@ -137,6 +137,7 @@ Uso de librerias: Request y Beatiful Soap:
 
 -BeatifulSoap: Esto se usa para parsear las paginas web, es decir para  analizar y extraer el json del html, en caso de que se nescecite. La libreria es ampliamente utilizada y recomendada, ademas no es dificil de utilizar
 
+![image](https://github.com/user-attachments/assets/f0bc22d3-32f3-49e6-8bd5-ee8c62c06a5b)
 
 
 
