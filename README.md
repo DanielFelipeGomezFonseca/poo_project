@@ -66,7 +66,7 @@ class Scraper {
   +guardar_producto(p: Producto) -> list[Producto]
 }
 
-class Alkosto {
+class AlkostoScraper {
   __init__() 
 }
 
@@ -74,7 +74,7 @@ class PanamericanaScraper {
   __init__() 
 }
 
-Scraper <|-- Alkosto
+Scraper <|-- AlkostoScraper
 Scraper <|-- PanamericanaScraper
 ```
 ## Diagrama de Clase 2: Relacion con el usario
