@@ -130,12 +130,12 @@ Usuario --> MostrarProductos : usa
 ## Solucion preliminar
 El formato al que se quiere parsear toda la informacion es el formato tipo Json:
 Porque? 
-Porque es un formato muy facil de entender, de manejar y es el formato defecto de las Apis
+Porque es un formato muy facil de entender, de manejar y es el formato defecto de las APIs :)
 
 Uso de librerias: Request y Beatiful Soap:
--Requests: se usa para obtener el contenido de la web, y poderlo parsear luego usando python, en el siguiente ejemplo se mostrara
+-Requests: se usa para obtener el contenido de la web haciendo una peticion  HTTP, y luego poderlo parsear usando otra libreria
 
--BeatifulSoap: Esto se usa para parsear las paginas web, es decir para extraer el json del html
+-BeatifulSoap: Esto se usa para parsear las paginas web, es decir para  analizar y extraer el json del html. 
 
 
 
