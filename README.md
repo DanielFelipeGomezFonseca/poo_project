@@ -64,7 +64,7 @@ class Scraper {
   +buscar_descuentos() -> float
   +crear_producto() -> Producto
   +guardar_producto(p: Producto) -> list[Producto]
-
+}
 
 class Alkosto {
   __init__() 
