@@ -1,6 +1,7 @@
 # Nombre del equipo-Alternativa definida: Serial Experiments POO - Alternativa 2
 
 # Nombre del proyecto: Search While Rest
+![SWR (1)](https://github.com/user-attachments/assets/3dbf9bf8-18ad-4aa4-a1c9-bf91d8fc4b99)
 
 ## Descripción del Proyecto
 
