@@ -143,8 +143,3 @@ Uso de librerias: Request y Beatiful Soap:
 Con beautiful soap la idea es hallar estos scripts tipo ld+json, aqui se muestra el ejemplo con panamericana
 ![image](https://github.com/user-attachments/assets/36c573f7-e729-452b-b1bd-ef379530cef2)
 
-## Preguntas
-![image](https://github.com/user-attachments/assets/85567812-c1ea-4f1b-9cbe-a379fe412d65)
-
-
-
