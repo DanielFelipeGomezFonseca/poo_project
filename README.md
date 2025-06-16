@@ -128,4 +128,14 @@ Usuario --> MostrarProductos : usa
 ```
 
 ## Solucion preliminar
-Uso de librerias: Request y Beatiful Soap
+El formato al que se quiere parsear toda la informacion es el formato tipo Json:
+Porque? 
+Porque es un formato muy facil de entender, de manejar y es el formato defecto de las Apis
+
+Uso de librerias: Request y Beatiful Soap:
+-Requests: se usa para obtener el contenido de la web, y poderlo parsear luego usando python, en el siguiente ejemplo se mostrara
+
+-BeatifulSoap: Esto se usa para parsear las paginas web, es decir para extraer el json del html
+
+
+
