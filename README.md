@@ -22,7 +22,7 @@ Las variables que se tienen en cuenta son:
 - Funcionalidades
 
 
-La aplicación facilita la búsqueda de productos para el usuario. Para ello, realiza la recolección de datos desde plataformas de comercio electrónico como MercadoLibre, Ebay, Panamericana.
+La aplicación facilita la búsqueda de productos para el usuario. Para ello, realiza la recolección de datos desde plataformas de comercio electrónico como Alkosto,   Panamericana.
 
 
 ## Por que se eligio
@@ -64,13 +64,9 @@ class Scraper {
   +buscar_descuentos() -> float
   +crear_producto() -> Producto
   +guardar_producto(p: Producto) -> list[Producto]
-}
 
-class EbayScraper {
-  __init__() 
-}
 
-class MercadoLibreScraper {
+class AlkostoScraper {
   __init__() 
 }
 
@@ -78,8 +74,7 @@ class PanamericanaScraper {
   __init__() 
 }
 
-Scraper <|-- EbayScraper
-Scraper <|-- MercadoLibreScraper
+Scraper <|-- AlkostoScraper
 Scraper <|-- PanamericanaScraper
 ```
 ## Diagrama de Clase 2: Relacion con el usario
