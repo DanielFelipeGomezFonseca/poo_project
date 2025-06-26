@@ -1,46 +1,129 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import pdb
 
-
-class Webscrapper():
-    def __init__(self,name):
+class Product:
+   def __init__(self, name):
         self.name=name
+   
+   def __str__(self):
+        return f"Producto {self.name}"
+
+class WebScrapper:
+    def __init__(self, objeto:str):
+         self._objecto = objeto
+
+class WebScrapper_Dinamico(WebScrapper):
+    def __init__(self, objeto):
+        super().__init__(objeto)
+
+    def parsear_json(self):
+       pass
+
+    def buscar_nombre(self):
+       pass
+
+    def buscar_marca(self):
+       pass
+
+    def buscar_precio(self):
+       pass
+
+    def buscar_link(self):
+       pass
+
+    def crear_productos(self):
+       pass
+
+    def mostrar_productos(self):
+       pass
+
+class PanamericanaScrapper(WebScrapper_Dinamico):
+    def __init__(self, objeto:str):
+        super().__init__(objeto)
+
+    def parsear_json(self) -> None:
+        if self._objecto== "audifonos":
+            try:
+                url = "https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft"  
+                response = requests.get(url)
+                soup = BeautifulSoup(response.text, "html.parser")
+                scripts = soup.find_all("script", type="application/ld+json")
+                for script in scripts:
+                    self.data = json.loads(script.string)
+                ##print(self.data)
+            except (TimeoutError,TypeError) as error: 
+                print(f"Existe este {error} ")
+        else: 
+           raise ValueError("No existe ese scrapper aun")
+
+    def buscar_nombre(self) ->list :
+       self.names=[]
+       try:
+        self.first_step=self.data["itemListElement"]
+        for product in self.first_step:
+           self.second_step=product["item"]
+           name=self.second_step["name"]
+           self.names.append(name)
+       except KeyError as error:
+        print(f" no  hay llave {error}")
+       return self.names
+       
+    def buscar_marca(self) ->list:
+        self.marcas=[]
+        try:
+            self.first_step=self.data["itemListElement"]
+            for product in self.first_step:
+             self.second_step=product["item"]
+             marca_inicial=self.second_step["brand"]
+             marca_final=marca_inicial["name"]
+             self.marcas.append(marca_final)
+        except KeyError as error:
+         print(f"No hay llave {error}")
+        return self.marcas
     
-    def buscar_json(self):
-        url = "https://www.panamericana.com.co/audifonos-tipo-diadema-bass-13-686721/p"
-        headers = {
-        "User-Agent": "Mozilla/5.0"
-            }
+    def buscar_precio(self) -> list:
+       ###pdb.set_trace()
+       self.precios=[]
+       try:
+            self.first_step=self.data["itemListElement"]
+            for product in self.first_step:
+             self.second_step=product["item"]
+             third_step=self.second_step["offers"]
+             fourth_step=third_step["offers"]
+             for item in fourth_step:
+                price=item["price"]
+             self.precios.append(price)
+       except KeyError as error:
+          print(f"No Hay llave {error}")
+   
+    def buscar_link(self) -> list:
+       self.links=[]
+       try:
+            self.first_step=self.data["itemListElement"]
+            for product in self.first_step:
+             self.second_step=product["item"]
+             link=self.second_step["@id"]
+             self.links.append(link)
+       except KeyError as error:
+          print(f"No Hay llave {error}")
+       return self.links
 
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-         soup = BeautifulSoup(response.text, "html.parser")
-
-         # Encuentra TODOS los bloques JSON en el HTML
-        scripts = soup.find_all("script", type="application/ld+json")
-
-        for script in scripts:
-             try:
-                 self.data = json.loads(script.string)
-                 # Solo procesamos si es un producto
-                 if self.data.get("@type") == "Product":
-                    pass
-             except (json.JSONDecodeError, TypeError):
-              continue  # Si el bloque no es un JSON válido, lo ignoramos
-        else:
-            print(f"❌ Error al cargar la página. Código: {response.status_code}")
+    def crear_productos(self) -> Product:
+       self.products=[]
+       for name in self.names:
+        self.products.append(Product(name=name))
+       return self.products
+    
+    def mostrar_productos(self):
+       for product in self.products:
+          print(product)
+    
 
 
-    def product_name(self):
-       names=[]
-       keys=self.data.keys()
-       for x in keys:
-          if x=="name":
-             names.append(self.data[x])
-       return names
-
-Web1=Webscrapper("audifonos")
-Web1.buscar_json()
-print(Web1.product_name())
+Scrapper1=PanamericanaScrapper("audifonos")
+Scrapper1.parsear_json()
+Scrapper1.buscar_nombre()
+Scrapper1.crear_productos()
+Scrapper1.mostrar_productos()
