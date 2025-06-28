@@ -4,15 +4,19 @@ import json
 import pdb
 
 class Product:
-   def __init__(self, name):
+   def __init__(self, name:str):
         self.name=name
+
+   def set_marca(self,marca):
+      self.marca=marca
    
+
    def __str__(self):
         return f"Producto {self.name}"
 
 class WebScrapper:
     def __init__(self, objeto:str):
-         self._objecto = objeto
+         self._objeto = objeto
 
 class WebScrapper_Dinamico(WebScrapper):
     def __init__(self, objeto):
@@ -32,6 +36,9 @@ class WebScrapper_Dinamico(WebScrapper):
 
     def buscar_link(self):
        pass
+    
+    def buscar_descripcion(self):
+       pass
 
     def crear_productos(self):
        pass
@@ -44,76 +51,107 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
         super().__init__(objeto)
 
     def parsear_json(self) -> None:
-        if self._objecto== "audifonos":
+        if self._objeto== "audifonos":
+            self.data=[]
+            ###pdb.set_trace()
             try:
-                url = "https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft"  
-                response = requests.get(url)
-                soup = BeautifulSoup(response.text, "html.parser")
-                scripts = soup.find_all("script", type="application/ld+json")
-                for script in scripts:
-                    self.data = json.loads(script.string)
-                ##print(self.data)
-            except (TimeoutError,TypeError) as error: 
+                page=1
+
+                while True:
+                  print (f"Scrapeando pagina {page}")
+                  url = f"https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&page={page}"  
+                  response = requests.get(url, timeout=10)
+                  if response.status_code != 200:
+                        raise ConnectionError("No se pudo conectar")
+                  
+                  soup = BeautifulSoup(response.text, "html.parser")
+                  scripts = soup.find_all("script", type="application/ld+json")
+
+                  try:
+                     raw_data=json.loads(scripts[1].string)
+                  except IndexError:
+                     print(f"La pagina {page-1} es la ultima pagina")
+                     break
+                  self.data.append(raw_data)
+                  page+=1
+
+            except (requests.exceptions.Timeout , requests.exceptions.ConnectTimeout) as error: 
                 print(f"Existe este {error} ")
+            except (KeyboardInterrupt) as f_error:
+               print(f"{f_error}")
         else: 
            raise ValueError("No existe ese scrapper aun")
 
     def buscar_nombre(self) ->list :
        self.names=[]
        try:
-        self.first_step=self.data["itemListElement"]
-        for product in self.first_step:
-           self.second_step=product["item"]
-           name=self.second_step["name"]
-           self.names.append(name)
+         for Json in self.data:
+            d_1=Json["itemListElement"]
+            for product in d_1:
+             d_2=product["item"]
+             name=d_2["name"]
+             self.names.append(name)
        except KeyError as error:
         print(f" no  hay llave {error}")
-       return self.names
        
     def buscar_marca(self) ->list:
         self.marcas=[]
         try:
-            self.first_step=self.data["itemListElement"]
-            for product in self.first_step:
-             self.second_step=product["item"]
-             marca_inicial=self.second_step["brand"]
-             marca_final=marca_inicial["name"]
-             self.marcas.append(marca_final)
+            for Json in self.data:
+               d_1=Json["itemListElement"]
+               for product in d_1:
+                  self.second_step=product["item"]
+                  marca_inicial=self.second_step["brand"]
+                  marca_final=marca_inicial["name"]
+                  self.marcas.append(marca_final)
         except KeyError as error:
          print(f"No hay llave {error}")
-        return self.marcas
     
     def buscar_precio(self) -> list:
        ###pdb.set_trace()
        self.precios=[]
        try:
-            self.first_step=self.data["itemListElement"]
-            for product in self.first_step:
-             self.second_step=product["item"]
-             third_step=self.second_step["offers"]
-             fourth_step=third_step["offers"]
-             for item in fourth_step:
-                price=item["price"]
-             self.precios.append(price)
+            for Json in self.data:
+               d_1=Json["itemListElement"]
+               for product in d_1:
+                  self.second_step=product["item"]
+                  third_step=self.second_step["offers"]
+                  fourth_step=third_step["offers"]
+                  for item in fourth_step:
+                     price=item["price"]
+                  self.precios.append(price)
        except KeyError as error:
           print(f"No Hay llave {error}")
    
     def buscar_link(self) -> list:
        self.links=[]
        try:
-            self.first_step=self.data["itemListElement"]
-            for product in self.first_step:
+         for Json in self.data:
+            d_1=Json["itemListElement"]
+            for product in d_1:
              self.second_step=product["item"]
              link=self.second_step["@id"]
              self.links.append(link)
        except KeyError as error:
           print(f"No Hay llave {error}")
-       return self.links
-
-    def crear_productos(self) -> Product:
+    
+    def buscar_descripcion(self) ->list:
+       self.descripcions=[]
+       try:
+         for Json in self.data:
+            d_1=Json["itemListElement"]
+            for product in d_1:
+             self.second_step=product["item"]
+             description=self.second_step["description"]
+             self.descripcions.append(description)
+       except KeyError as error:
+          print(f"No Hay llave {error}")
+    
+    def crear_productos(self) -> list:
        self.products=[]
        for name in self.names:
-        self.products.append(Product(name=name))
+        p=Product(name=name)
+        self.products.append(p)  
        return self.products
     
     def mostrar_productos(self):
@@ -124,6 +162,10 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
 
 Scrapper1=PanamericanaScrapper("audifonos")
 Scrapper1.parsear_json()
-Scrapper1.buscar_nombre()
-Scrapper1.crear_productos()
-Scrapper1.mostrar_productos()
+#print(len(Scrapper1.data)) 
+#(Scrapper1.buscar_nombre())
+#print(len(Scrapper1.names))
+#Scrapper1.buscar_precio()
+#print(len((Scrapper1.precios)))
+
+#Scrapper1.mostrar_productos()
