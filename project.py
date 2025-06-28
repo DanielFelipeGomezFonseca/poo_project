@@ -162,10 +162,9 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
 
 Scrapper1=PanamericanaScrapper("audifonos")
 Scrapper1.parsear_json()
-#print(len(Scrapper1.data)) 
-#(Scrapper1.buscar_nombre())
-#print(len(Scrapper1.names))
-#Scrapper1.buscar_precio()
-#print(len((Scrapper1.precios)))
+(Scrapper1.buscar_nombre())
+print((Scrapper1.names))
+Scrapper1.buscar_precio()
+print(((Scrapper1.precios)))
 
 #Scrapper1.mostrar_productos()
