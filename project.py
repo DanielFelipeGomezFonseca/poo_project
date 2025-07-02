@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import pdb
+from collections import namedtuple
 
 class Product:
    def __init__(self, name:str):
@@ -74,7 +75,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                      break
                   self.data.append(raw_data)
                   page+=1
-
+                  
             except (requests.exceptions.Timeout , requests.exceptions.ConnectTimeout) as error: 
                 print(f"Existe este {error} ")
             except (KeyboardInterrupt) as f_error:
@@ -149,11 +150,11 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
     
     def crear_productos(self) -> list:
        self.products=[]
-       for name in self.names:
-        p=Product(name=name)
-        self.products.append(p)  
-       return self.products
-    
+       product =namedtuple("Product", ["nombre" , "marca", "precio" , "link"])
+       for i in range(len(self.names)):
+         p = product(self.names[i], self.marcas[i], self.precios[i], self.links[i])
+         self.products.append(p)
+
     def mostrar_productos(self):
        for product in self.products:
           print(product)
@@ -163,8 +164,8 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
 Scrapper1=PanamericanaScrapper("audifonos")
 Scrapper1.parsear_json()
 (Scrapper1.buscar_nombre())
-print((Scrapper1.names))
 Scrapper1.buscar_precio()
-print(((Scrapper1.precios)))
-
-#Scrapper1.mostrar_productos()
+Scrapper1.buscar_marca()
+Scrapper1.buscar_link()
+Scrapper1.crear_productos()
+Scrapper1.mostrar_productos()
