@@ -91,7 +91,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
              d_2=product["item"]
              name=d_2["name"]
              self.names.append(name)
-       except KeyError as error:
+       except Exception as error:
         print(f" no  hay llave {error}")
        
     def buscar_marca(self) ->list:
@@ -104,7 +104,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                   marca_inicial=self.second_step["brand"]
                   marca_final=marca_inicial["name"]
                   self.marcas.append(marca_final)
-        except KeyError as error:
+        except Exception as error:
          print(f"No hay llave {error}")
     
     def buscar_precio(self) -> list:
@@ -120,7 +120,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                   for item in fourth_step:
                      price=item["price"]
                   self.precios.append(price)
-       except KeyError as error:
+       except Exception as error:
           print(f"No Hay llave {error}")
    
     def buscar_link(self) -> list:
@@ -132,7 +132,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
              self.second_step=product["item"]
              link=self.second_step["@id"]
              self.links.append(link)
-       except KeyError as error:
+       except Exception as error:
           print(f"No Hay llave {error}")
     
     def buscar_descripcion(self) ->list:
@@ -144,7 +144,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
              self.second_step=product["item"]
              description=self.second_step["description"]
              self.descripcions.append(description)
-       except KeyError as error:
+       except Exception as error:
           print(f"No Hay llave {error}")
     
     def crear_productos(self) -> list:
