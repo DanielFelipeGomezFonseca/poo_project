@@ -4,20 +4,15 @@ import json
 import pdb
 from collections import namedtuple
 
-class Product:
-   def __init__(self, name:str):
-        self.name=name
-
-   def set_marca(self,marca):
-      self.marca=marca
-   
-
-   def __str__(self):
-        return f"Producto {self.name}"
-
 class WebScrapper:
     def __init__(self, objeto:str):
          self._objeto = objeto
+
+class WebScrapperEstatico(WebScrapper):
+   def __init__(self, objeto):
+        super().__init__(objeto)
+
+
 
 class WebScrapper_Dinamico(WebScrapper):
     def __init__(self, objeto):
