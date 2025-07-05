@@ -47,15 +47,20 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
         super().__init__(objeto)
 
     def parsear_json(self) -> None:
-        if self._objeto== "audifonos":
             self.data=[]
+            if self._objeto== "audifonos":
+               url = f"https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&"
+            elif self._objeto == "mouse":
+               url = f"https://www.panamericana.com.co/mouse?_q=mouse&map=ft&"
+            elif self._objeto == "teclado":
+               url = "https://www.panamericana.com.co/teclado?_q=teclado&map=ft&"
             ###pdb.set_trace()
             try:
                 page=1
                 while True:
                   print (f"Scrapeando pagina {page}")
-                  url = f"https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&page={page}"  
-                  response = requests.get(url, timeout=10)
+                  url_modified=url+f"page={page}"
+                  response = requests.get(url_modified, timeout=10)
                   if response.status_code != 200:
                         raise ConnectionError("No se pudo conectar")
                   
@@ -76,8 +81,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                 print(f"Existe este {error} ")
             except (KeyboardInterrupt) as f_error:
                print(f"{f_error}")
-        else: 
-           raise ValueError("No existe ese scrapper aun")
+      
 
     def buscar_nombre(self) ->list :
        self.names=[]
@@ -119,7 +123,22 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                   self.precios.append(price)
        except Exception as error:
           print(f"No Hay llave {error}")
-   
+
+    def buscar_disponibilidad(self):
+      self.disponibilidad=[]
+      try:
+         for Json in self.data:
+            d_1=Json["itemListElement"]
+            for product in d_1:
+               self.second_step=product["item"]
+               third_step=self.second_step["offers"]
+               fourth_step=third_step["offers"]
+               for item in fourth_step:
+                  disponibilidad=item["availability"]
+                  self.disponibilidad.append(disponibilidad)
+      except Exception as error:
+         print(f"No Hay llave {error}")
+
     def buscar_link(self) -> list:
        self.links=[]
        try:
@@ -133,22 +152,23 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
           print(f"No Hay llave {error}")
     
     def buscar_descripcion(self) ->list:
-       self.descripcions=[]
-       try:
+      self.descripcions=[]
+      try:
          for Json in self.data:
             d_1=Json["itemListElement"]
             for product in d_1:
              self.second_step=product["item"]
              description=self.second_step["description"]
              self.descripcions.append(description)
-       except Exception as error:
-          print(f"No Hay llave {error}")
+      except Exception as error:
+         print(f"No Hay llave {error}")
+      
     
     def crear_productos(self) -> list:
        self.products=[]
-       product =namedtuple("Product", ["nombre" , "marca", "precio" , "link"])
+       product =namedtuple("Product", ["nombre" , "marca", "precio" , "link","disponibilidad"])
        for i in range(len(self.names)):
-         p = product(self.names[i], self.marcas[i], self.precios[i], self.links[i])
+         p = product(self.names[i], self.marcas[i], self.precios[i], self.links[i], self.disponibilidad[i])
          self.products.append(p)
 
     def mostrar_productos(self):
@@ -163,5 +183,7 @@ Scrapper1.parsear_json()
 Scrapper1.buscar_precio()
 Scrapper1.buscar_marca()
 Scrapper1.buscar_link()
+Scrapper1.buscar_disponibilidad()
 Scrapper1.crear_productos()
 Scrapper1.mostrar_productos()
+
