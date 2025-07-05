@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-<<<<<<< HEAD
 import pdb
 from collections import namedtuple
 
@@ -18,12 +17,6 @@ class WebScrapperEstatico(WebScrapper):
 class WebScrapper_Dinamico(WebScrapper):
     def __init__(self, objeto):
         super().__init__(objeto)
-=======
-
-class WebScrapper:
-    def __init__(self,object):
-       self._object = object
->>>>>>> upstream/master
 
     def parsear_json(self):
        pass
@@ -31,7 +24,6 @@ class WebScrapper:
     def buscar_nombre(self):
        pass
 
-<<<<<<< HEAD
     def buscar_marca(self):
        pass
 
@@ -60,7 +52,6 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
             ###pdb.set_trace()
             try:
                 page=1
-
                 while True:
                   print (f"Scrapeando pagina {page}")
                   url = f"https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&page={page}"  
@@ -70,7 +61,7 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                   
                   soup = BeautifulSoup(response.text, "html.parser")
                   scripts = soup.find_all("script", type="application/ld+json")
-
+                 
                   try:
                      raw_data=json.loads(scripts[1].string)
                   except IndexError:
@@ -79,6 +70,8 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                   self.data.append(raw_data)
                   page+=1
                   
+
+   
             except (requests.exceptions.Timeout , requests.exceptions.ConnectTimeout) as error: 
                 print(f"Existe este {error} ")
             except (KeyboardInterrupt) as f_error:
@@ -170,33 +163,5 @@ Scrapper1.parsear_json()
 Scrapper1.buscar_precio()
 Scrapper1.buscar_marca()
 Scrapper1.buscar_link()
-Scrapper1.crear_productos()
-Scrapper1.mostrar_productos()
-=======
-class PanamericanaScrapper(WebScrapper):
-    def __init__(self,object):
-        super().__init__(object)
-    
-    def parsear_json(self):
-        url = "https://www.panamericana.com.co/audifonos-tipo-diadema-bass-13-686721/p"  
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, "html.parser")
-        scripts = soup.find_all("script", type="application/ld+json")
-        for script in scripts:
-            
-            self.data = json.loads(script.string)
-
-        print(self.data)
-
-    def buscar_nombre(self):
-       names=[]
-       keys=self.data.keys()
-       for x in keys:
-          if x=="name":
-             names.append(self.data[x])
-       return names
-
-Web1=PanamericanaScrapper("audifonos")
-Web1.parsear_json()
-print(Web1.buscar_nombre())
->>>>>>> upstream/master
+#Scrapper1.crear_productos()
+#Scrapper1.mostrar_productos()
