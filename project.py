@@ -163,3 +163,28 @@ class PanamericanaScrapper(WebScrapperDinamico):
 
     def crear_productos(self) -> list:
         self.products = []
+        product = namedtuple("Product", ["nombre", "marca", "precio", "link", "disponibilidad"])
+        for i in range(len(self.names)):
+            p = product(
+                self.names[i],
+                self.marcas[i],
+                self.precios[i],
+                self.links[i],
+                self.disponibilidad[i]
+            )
+            self.products.append(p)
+
+    def mostrar_productos(self):
+        for product in self.products:
+            print(product)
+
+
+Scrapper1 = PanamericanaScrapper("audifonos")
+Scrapper1.parsear_json()
+Scrapper1.buscar_nombre()
+Scrapper1.buscar_precio()
+Scrapper1.buscar_marca()
+Scrapper1.buscar_link()
+Scrapper1.buscar_disponibilidad()
+Scrapper1.crear_productos()
+Scrapper1.mostrar_productos()
