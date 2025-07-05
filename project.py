@@ -52,17 +52,16 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
             ###pdb.set_trace()
             try:
                 page=1
-
                 while True:
                   print (f"Scrapeando pagina {page}")
-                  url = f"https://www.panamericana.com.co/mouse?_q=mouse&map=ft&page={page}"  
+                  url = f"https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&page={page}"  
                   response = requests.get(url, timeout=10)
                   if response.status_code != 200:
                         raise ConnectionError("No se pudo conectar")
                   
                   soup = BeautifulSoup(response.text, "html.parser")
                   scripts = soup.find_all("script", type="application/ld+json")
-
+                 
                   try:
                      raw_data=json.loads(scripts[1].string)
                   except IndexError:
@@ -70,9 +69,9 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
                      break
                   self.data.append(raw_data)
                   page+=1
+                  
 
-                  
-                  
+   
             except (requests.exceptions.Timeout , requests.exceptions.ConnectTimeout) as error: 
                 print(f"Existe este {error} ")
             except (KeyboardInterrupt) as f_error:
@@ -153,7 +152,6 @@ class PanamericanaScrapper(WebScrapper_Dinamico):
          self.products.append(p)
 
     def mostrar_productos(self):
-       len(self.products)
        for product in self.products:
           print(product)
     
@@ -165,5 +163,5 @@ Scrapper1.parsear_json()
 Scrapper1.buscar_precio()
 Scrapper1.buscar_marca()
 Scrapper1.buscar_link()
-Scrapper1.crear_productos()
-Scrapper1.mostrar_productos()
+#Scrapper1.crear_productos()
+#Scrapper1.mostrar_productos()
