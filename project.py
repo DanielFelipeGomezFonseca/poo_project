@@ -47,6 +47,7 @@ class WebScrapperDinamico(WebScrapper):
 class PanamericanaScrapper(WebScrapperDinamico):
     def __init__(self, objeto: str):
         super().__init__(objeto)
+        self.pagina="Panamericana"
 
     def parsear_json(self) -> None:
         self.data = []
@@ -178,13 +179,63 @@ class PanamericanaScrapper(WebScrapperDinamico):
         for product in self.products:
             print(product)
 
+class FallabelaScrapper(WebScrapperDinamico):
+   def __init__(self, objeto: str):
+        super().__init__(objeto)
+        self.pagina="Fallabela"
 
-Scrapper1 = PanamericanaScrapper("audifonos")
-Scrapper1.parsear_json()
-Scrapper1.buscar_nombre()
-Scrapper1.buscar_precio()
-Scrapper1.buscar_marca()
-Scrapper1.buscar_link()
-Scrapper1.buscar_disponibilidad()
-Scrapper1.crear_productos()
-Scrapper1.mostrar_productos()
+   def parsear_json(self) -> None:
+        
+        self.data=[]
+
+        if self._objeto == "audifonos":
+            url = "https://www.falabella.com.co/falabella-co/category/cat50670/Audifonos?sred=audifonos&"
+        elif self._objeto == "mouse":
+            url = "https://www.panamericana.com.co/mouse?_q=mouse&map=ft&"
+        elif self._objeto == "teclado":
+            url = "https://www.panamericana.com.co/teclado?_q=teclado&map=ft&"
+
+        headers = {"User-Agent": "Mozilla/5.0"}
+        try:
+            page = 1
+            while True:
+                print(f"Scrapeando pagina {page}")
+                url_modified = url + f"page={page}"
+                response = requests.get(url_modified, headers=headers, timeout=10)
+                if response.status_code != 200:
+                    raise ConnectionError("No se pudo conectar")
+
+                soup = BeautifulSoup(response.text, "lxml")
+
+                script = soup.find("script", attrs={"id": "__NEXT_DATA__"})
+
+                raw_json = json.loads(script.get_text())
+
+                try:
+                    productos = raw_json["props"]["pageProps"]["results"] 
+                except KeyError:             
+                    print(f"La pagina {page - 1} es la ultima pagina")
+                    break
+
+                self.data.append(productos)
+
+                page += 1
+               
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
+            print(f"Existe este {error}")
+        except KeyboardInterrupt as f_error:
+            print(f"{f_error}")
+         
+#Scrapper1 = PanamericanaScrapper("audifonos")
+#Scrapper1.parsear_json()
+#Scrapper1.buscar_nombre()
+#Scrapper1.buscar_precio()
+#Scrapper1.buscar_marca()
+#Scrapper1.buscar_link()
+#Scrapper1.buscar_disponibilidad()
+#Scrapper1.crear_productos()
+#Scrapper1.mostrar_productos()
+
+Scrapper2 = FallabelaScrapper ("audifonos")
+Scrapper2.parsear_json()
+print(Scrapper2.data)
