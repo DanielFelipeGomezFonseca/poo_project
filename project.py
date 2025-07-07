@@ -37,6 +37,12 @@ class WebScrapperDinamico(WebScrapper):
     def buscar_descripcion(self):
         pass
 
+    def buscar_descuento(self):
+        pass
+
+    def buscar_disponibilidad(self):
+        pass
+
     def crear_productos(self):
         pass
 
@@ -164,7 +170,7 @@ class PanamericanaScrapper(WebScrapperDinamico):
 
     def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio", "link", "disponibilidad"])
+        product = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "link", "disponibilidad"])
         for i in range(len(self.names)):
             p = product(
                 self.pagina,
@@ -192,9 +198,9 @@ class FallabelaScrapper(WebScrapperDinamico):
         if self._objeto == "audifonos":
             url = "https://www.falabella.com.co/falabella-co/category/cat50670/Audifonos?sred=audifonos&"
         elif self._objeto == "mouse":
-            url = "https://www.panamericana.com.co/mouse?_q=mouse&map=ft&"
+            url = "https://www.falabella.com.co/falabella-co/search?Ntt=mouse&"
         elif self._objeto == "teclado":
-            url = "https://www.panamericana.com.co/teclado?_q=teclado&map=ft&"
+            url = "https://www.falabella.com.co/falabella-co/search?Ntt=teclado&"
 
         headers = {"User-Agent": "Mozilla/5.0"}
         try:
@@ -288,7 +294,7 @@ class FallabelaScrapper(WebScrapperDinamico):
 
    def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio","descuento", "link" ])
+        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio","descuento", "link","disponibilidad" ])
         for i in range(len(self.names)):
             p = product(
                 self.pagina,
@@ -296,7 +302,8 @@ class FallabelaScrapper(WebScrapperDinamico):
                 self.marcas[i],
                 self.precios[i],
                 self.descuentos[i],
-                self.links[i]
+                self.links[i],
+                "In stock"
                 
             )
             self.products.append(p)
@@ -305,17 +312,17 @@ class FallabelaScrapper(WebScrapperDinamico):
         for product in self.products:
             print(product)
 
-Scrapper1=PanamericanaScrapper("audifonos")
-Scrapper1.parsear_json()
-Scrapper1.buscar_nombre()
-Scrapper1.buscar_precio()
-Scrapper1.buscar_marca()
-Scrapper1.buscar_link()
-Scrapper1.buscar_disponibilidad()
-Scrapper1.crear_productos()
-Scrapper1.mostrar_productos()
+#Scrapper1=PanamericanaScrapper("audifonos")
+##Scrapper1.parsear_json()
+#Scrapper1.buscar_nombre()
+#Scrapper1.buscar_precio()
+#Scrapper1.buscar_marca()
+#Scrapper1.buscar_link()
+#Scrapper1.buscar_disponibilidad()
+#Scrapper1.crear_productos()
+#Scrapper1.mostrar_productos()
 
-Scrapper2=FallabelaScrapper ("audifonos")
+Scrapper2=FallabelaScrapper ("teclado")
 Scrapper2.parsear_json()
 Scrapper2.buscar_nombre()
 Scrapper2.buscar_marca()
