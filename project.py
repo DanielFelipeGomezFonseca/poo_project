@@ -164,7 +164,7 @@ class PanamericanaScrapper(WebScrapperDinamico):
 
     def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple("Product", ["pagina","nombre", "marca", "precio", "link", "disponibilidad"])
+        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio", "link", "disponibilidad"])
         for i in range(len(self.names)):
             p = product(
                 self.pagina,
@@ -288,7 +288,7 @@ class FallabelaScrapper(WebScrapperDinamico):
 
    def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple("Product", ["pagina","nombre", "marca", "precio","descuento", "link" ])
+        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio","descuento", "link" ])
         for i in range(len(self.names)):
             p = product(
                 self.pagina,
@@ -322,6 +322,5 @@ Scrapper2.buscar_marca()
 Scrapper2.buscar_link()
 (Scrapper2.buscar_precio())
 Scrapper2.buscar_descuento()
-print(Scrapper2.descuentos)
 Scrapper2.crear_productos()
 Scrapper2.mostrar_productos()
