@@ -164,9 +164,10 @@ class PanamericanaScrapper(WebScrapperDinamico):
 
     def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple("Product", ["nombre", "marca", "precio", "link", "disponibilidad"])
+        product = namedtuple("Product", ["pagina","nombre", "marca", "precio", "link", "disponibilidad"])
         for i in range(len(self.names)):
             p = product(
+                self.pagina,
                 self.names[i],
                 self.marcas[i],
                 self.precios[i],
@@ -218,12 +219,92 @@ class FallabelaScrapper(WebScrapperDinamico):
                 self.data.append(productos)
 
                 page += 1
-                break
+                
         except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
             print(f"Existe este {error}")
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
-         
+
+   def buscar_nombre(self) -> list:
+        self.names = []
+        try:
+            for Json in self.data:
+               for d_1 in Json:
+                   name=d_1["displayName"]
+                   self.names.append(name)
+        except Exception as error:
+            print(f"Hay error {error}")
+    
+   def buscar_marca(self) -> list:
+        self.marcas = []
+        try:
+            for Json in self.data:
+               for d_1 in Json:
+                   first_step=d_1["topSpecifications"]
+                   if len(first_step) != 0:
+                    d_2=first_step[0]
+                    self.marcas.append(d_2)
+                   else: 
+                       self.marcas.append("No se encontro la marca")
+        except Exception as error:
+            print(f"Hay error {error}")
+
+   def buscar_link(self) -> list:
+       self.links = []
+       try:
+            for Json in self.data:
+               for d_1 in Json:
+                   link=d_1["url"]
+                   self.links.append(link)
+       except Exception as error:
+            print(f"Hay error {error}")
+   
+   def buscar_precio(self) -> list:
+       self.precios=[]
+       try:
+            for Json in self.data:
+               for d_1 in Json:
+                   f_1=d_1["prices"]
+                   f_2=f_1[0]
+                   precios=f_2.get("price","")
+                   for precio in precios:
+                    self.precios.append(precio)   
+       except Exception as error:
+            print(f"Hay error {error}")
+
+   def buscar_descuento(self) -> list:
+       self.descuentos=[]
+       try:
+            for Json in self.data:
+               for d_1 in Json:
+                   if "discountBadge" in d_1.keys():
+                    f_1=d_1["discountBadge"]
+                    descuento=f_1["label"]
+                    self.descuentos.append(descuento) 
+                   else: 
+                       self.descuentos.append("0")  
+       except Exception as error:
+            print(f"Hay error {error}")
+
+   def crear_productos(self) -> list:
+        self.products = []
+        product = namedtuple("Product", ["pagina","nombre", "marca", "precio","descuento", "link" ])
+        for i in range(len(self.names)):
+            p = product(
+                self.pagina,
+                self.names[i],
+                self.marcas[i],
+                self.precios[i],
+                self.descuentos[i],
+                self.links[i]
+                
+            )
+            self.products.append(p)
+
+   def mostrar_productos(self):
+        for product in self.products:
+            print(product)
+
 Scrapper1=PanamericanaScrapper("audifonos")
 Scrapper1.parsear_json()
 Scrapper1.buscar_nombre()
@@ -234,5 +315,13 @@ Scrapper1.buscar_disponibilidad()
 Scrapper1.crear_productos()
 Scrapper1.mostrar_productos()
 
-#Scrapper2=FallabelaScrapper ("audifonos")
-#Scrapper2.parsear_json()
+Scrapper2=FallabelaScrapper ("audifonos")
+Scrapper2.parsear_json()
+Scrapper2.buscar_nombre()
+Scrapper2.buscar_marca()
+Scrapper2.buscar_link()
+(Scrapper2.buscar_precio())
+Scrapper2.buscar_descuento()
+print(Scrapper2.descuentos)
+Scrapper2.crear_productos()
+Scrapper2.mostrar_productos()
