@@ -122,17 +122,13 @@ class PanamericanaScrapper(WebScrapperDinamico):
             print(f"Hay error {error}")
 
     def buscar_disponibilidad(self):
-        self.disponibilidad = []
         try:
-            for Json in self.data:
-                d_1 = Json["itemListElement"]
-                for product in d_1:
-                    self.second_step = product["item"]
-                    third_step = self.second_step["offers"]
-                    fourth_step = third_step["offers"]
-                    for item in fourth_step:
-                        disponibilidad = item["availability"]
-                        self.disponibilidad.append(disponibilidad)
+             self.disponibilidad = [
+                item["availability"]
+                for Json in self.data
+                for product in Json["itemListElement"]
+                for item in product["item"]["offers"]["offers"]
+             ]
         except Exception as error:
             print(f"Hay error {error}")
 
@@ -147,17 +143,17 @@ class PanamericanaScrapper(WebScrapperDinamico):
         except Exception as error:
             print(f"Hay error {error}")
 
-    def buscar_descripcion(self) -> list:
-        self.descripcions = []
-        try:
-            for Json in self.data:
-                d_1 = Json["itemListElement"]
-                for product in d_1:
-                    self.second_step = product["item"]
-                    description = self.second_step["description"]
-                    self.descripcions.append(description)
-        except Exception as error:
-            print(f"Hay error {error}")
+    # def buscar_descripcion(self) -> list:
+        #self.descripcions = []
+        #try:
+            #for Json in self.data:
+               # d_1 = Json["itemListElement"]
+                #for product in d_1:
+                   # self.second_step = product["item"]
+                   ## description = self.second_step["description"]
+                   # self.descripcions.append(description)
+       # except Exception as error:
+           # print(f"Hay error {error}")
 
     def crear_productos(self) -> list:
         self.products = []
