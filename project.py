@@ -89,43 +89,35 @@ class PanamericanaScrapper(WebScrapperDinamico):
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
 
-    def buscar_nombre(self) -> list:
-        self.names = []
+    def buscar_nombre(self):
         try:
-            for Json in self.data:
-                d_1 = Json["itemListElement"]
-                for product in d_1:
-                    d_2 = product["item"]
-                    name = d_2["name"]
-                    self.names.append(name)
+            self.names=[
+                product["item"]["name"]
+                for Json in self.data
+                for product in Json["itemListElement"]
+            ]
         except Exception as error:
             print(f"Hay error {error}")
 
-    def buscar_marca(self) -> list:
-        self.marcas = []
+    def buscar_marca(self):
         try:
-            for Json in self.data:
-                d_1 = Json["itemListElement"]
-                for product in d_1:
-                    self.second_step = product["item"]
-                    marca_inicial = self.second_step["brand"]
-                    marca_final = marca_inicial["name"]
-                    self.marcas.append(marca_final)
+            self.marcas = [
+        product["item"]["brand"]["name"]
+        for Json in self.data
+        for product in Json["itemListElement"]
+    ]
         except Exception as error:
             print(f"Hay error {error}")
 
     def buscar_precio(self) -> list:
-        self.precios = []
         try:
-            for Json in self.data:
-                d_1 = Json["itemListElement"]
-                for product in d_1:
-                    self.second_step = product["item"]
-                    third_step = self.second_step["offers"]
-                    fourth_step = third_step["offers"]
-                    for item in fourth_step:
-                        price = item["price"]
-                    self.precios.append(price)
+            self.precios = [
+                item["price"]
+                for Json in self.data
+                for product in Json["itemListElement"]
+                for item in product["item"]["offers"]["offers"]
+            ]
+            
         except Exception as error:
             print(f"Hay error {error}")
 
@@ -312,15 +304,17 @@ class FallabelaScrapper(WebScrapperDinamico):
         for product in self.products:
             print(product)
 
-#Scrapper1=PanamericanaScrapper("audifonos")
-##Scrapper1.parsear_json()
-#Scrapper1.buscar_nombre()
-#Scrapper1.buscar_precio()
-#Scrapper1.buscar_marca()
-#Scrapper1.buscar_link()
-#Scrapper1.buscar_disponibilidad()
-#Scrapper1.crear_productos()
-#Scrapper1.mostrar_productos()
+Scrapper1=PanamericanaScrapper("audifonos")
+Scrapper1.parsear_json()
+Scrapper1.buscar_nombre()
+
+Scrapper1.buscar_precio()
+Scrapper1.buscar_marca()
+print(Scrapper1.names)
+Scrapper1.buscar_link()
+Scrapper1.buscar_disponibilidad()
+Scrapper1.crear_productos()
+
 
 Scrapper2=FallabelaScrapper ("teclado")
 Scrapper2.parsear_json()
@@ -330,4 +324,3 @@ Scrapper2.buscar_link()
 (Scrapper2.buscar_precio())
 Scrapper2.buscar_descuento()
 Scrapper2.crear_productos()
-Scrapper2.mostrar_productos()
