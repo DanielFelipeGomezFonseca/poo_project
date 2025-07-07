@@ -137,14 +137,13 @@ class PanamericanaScrapper(WebScrapperDinamico):
             print(f"Hay error {error}")
 
     def buscar_link(self) -> list:
-        self.links = []
+             
         try:
-            for Json in self.data:
-                d_1 = Json["itemListElement"]
-                for product in d_1:
-                    self.second_step = product["item"]
-                    link = self.second_step["@id"]
-                    self.links.append(link)
+            self.links=[
+            product["item"]["@id"]
+            for Json in self.data
+            for product in Json["itemListElement"]
+        ]
         except Exception as error:
             print(f"Hay error {error}")
 
