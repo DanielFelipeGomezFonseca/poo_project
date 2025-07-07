@@ -219,12 +219,13 @@ class FallabelaScrapper(WebScrapperDinamico):
             print(f"{f_error}")
 
    def buscar_nombre(self) -> list:
-        self.names = []
+      
         try:
-            for Json in self.data:
-               for d_1 in Json:
-                   name=d_1["displayName"]
-                   self.names.append(name)
+            self.names=[
+            d_1["displayName"]
+            for Json in self.data
+            for d_1 in Json
+        ] 
         except Exception as error:
             print(f"Hay error {error}")
     
@@ -317,3 +318,4 @@ Scrapper2.buscar_link()
 (Scrapper2.buscar_precio())
 Scrapper2.buscar_descuento()
 Scrapper2.crear_productos()
+Scrapper2.mostrar_productos()
