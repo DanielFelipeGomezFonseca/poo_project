@@ -218,7 +218,7 @@ class FallabelaScrapper(WebScrapperDinamico):
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
 
-   def buscar_nombre(self) -> list:
+   def buscar_nombre(self):
       
         try:
             self.names=[
@@ -230,53 +230,50 @@ class FallabelaScrapper(WebScrapperDinamico):
             print(f"Hay error {error}")
     
    def buscar_marca(self) -> list:
-        self.marcas = []
+       
         try:
-            for Json in self.data:
-               for d_1 in Json:
-                   first_step=d_1["topSpecifications"]
-                   if len(first_step) != 0:
-                    d_2=first_step[0]
-                    self.marcas.append(d_2)
-                   else: 
-                       self.marcas.append("No se encontro la marca")
+            self.marcas=[
+            d_1["topSpecifications"][0]
+            if len(d_1["topSpecifications"]) != 0
+            else
+            "No se encontro la marca"
+            for Json in self.data
+            for d_1 in Json
+        ]
         except Exception as error:
             print(f"Hay error {error}")
 
    def buscar_link(self) -> list:
-       self.links = []
+       
        try:
-            for Json in self.data:
-               for d_1 in Json:
-                   link=d_1["url"]
-                   self.links.append(link)
+            self.links=[
+            d_1["url"]
+            for Json in self.data
+            for d_1 in Json
+        ] 
        except Exception as error:
             print(f"Hay error {error}")
    
-   def buscar_precio(self) -> list:
-       self.precios=[]
+   def buscar_precio(self) -> list:       
        try:
-            for Json in self.data:
-               for d_1 in Json:
-                   f_1=d_1["prices"]
-                   f_2=f_1[0]
-                   precios=f_2.get("price","")
-                   for precio in precios:
-                    self.precios.append(precio)   
+         self.precios=[
+            d_1["prices"][0]["price"]
+            for Json in self.data
+            for d_1 in Json
+        ]     
        except Exception as error:
             print(f"Hay error {error}")
 
    def buscar_descuento(self) -> list:
-       self.descuentos=[]
        try:
-            for Json in self.data:
-               for d_1 in Json:
-                   if "discountBadge" in d_1.keys():
-                    f_1=d_1["discountBadge"]
-                    descuento=f_1["label"]
-                    self.descuentos.append(descuento) 
-                   else: 
-                       self.descuentos.append("0")  
+           self.descuentos=[
+            d_1["discountBadge"]["label"]
+            if "discountBadge" in d_1.keys()
+            else
+            "0"
+            for Json in self.data
+            for d_1 in Json 
+            ]
        except Exception as error:
             print(f"Hay error {error}")
 
