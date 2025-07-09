@@ -14,7 +14,17 @@ class WebScrapperEstatico(WebScrapper):
     def __init__(self, objeto):
         super().__init__(objeto)
 
+    def parsear_pagina(self):
+        pass
 
+    def obtener_nombre_pagina(self):
+        pass
+
+    def obtener_titulos(self):
+        pass
+
+    def obtener_parrafos(self):
+        pass
 class WebScrapperDinamico(WebScrapper):
     def __init__(self, objeto):
         super().__init__(objeto)
@@ -34,9 +44,6 @@ class WebScrapperDinamico(WebScrapper):
     def buscar_link(self):
         pass
 
-    def buscar_descripcion(self):
-        pass
-
     def buscar_descuento(self):
         pass
 
@@ -49,6 +56,38 @@ class WebScrapperDinamico(WebScrapper):
     def mostrar_productos(self):
         pass
 
+class WikipediaScrapper(WebScrapperEstatico):
+    def __init__(self, objeto):
+        super().__init__(objeto)
+        self.pagina = "Wikipedia"
+    
+    def parsear_pagina(self):
+        if self._objeto == "audifonos":
+            url = "https://es.wikipedia.org/wiki/Audífono"
+        elif self._objeto == "mouse":
+            url = "https://www.panamericana.com.co/mouse?_q=mouse&map=ft&"
+        elif self._objeto == "teclado":
+            url = "https://www.panamericana.com.co/teclado?_q=teclado&map=ft&"
+
+        self.response = requests.get(url, timeout=10)
+        if self.response.status_code != 200:
+            raise ConnectionError("No se pudo conectar")  
+        self.soup=BeautifulSoup(self.response.text, "html.parser")
+  
+    def obtener_nombre_pagina(self):
+        name=self.soup.find(id="firstHeading")
+        self.name=name.string
+
+    def obtener_titulos(self):
+        tittles=self.soup.find_all(["h2"])
+        self.titles=[
+            (tittle.text.strip())
+            for tittle in tittles
+        ]
+            
+    def obtener_parrafos(self):
+        paragraphs=self.soup.find_all( id="bodyContent")
+        
 
 class PanamericanaScrapper(WebScrapperDinamico):
     def __init__(self, objeto: str):
@@ -71,7 +110,6 @@ class PanamericanaScrapper(WebScrapperDinamico):
                 response = requests.get(url_modified, timeout=10)
                 if response.status_code != 200:
                     raise ConnectionError("No se pudo conectar")
-
                 soup = BeautifulSoup(response.text, "lxml")
                 scripts = soup.find_all("script", type="application/ld+json")
 
@@ -297,22 +335,28 @@ class FallabelaScrapper(WebScrapperDinamico):
         for product in self.products:
             print(product)
 
-Scrapper1=PanamericanaScrapper("audifonos")
-Scrapper1.parsear_json()
-Scrapper1.buscar_nombre()
-Scrapper1.buscar_precio()
-Scrapper1.buscar_marca()
-Scrapper1.buscar_link()
-Scrapper1.buscar_disponibilidad()
-Scrapper1.crear_productos()
-Scrapper1.mostrar_productos()
+#Scrapper1=PanamericanaScrapper("audifonos")
+#Scrapper1.parsear_json()
+#crapper1.buscar_nombre()
+#Scrapper1.buscar_precio()
+#Scrapper1.buscar_marca()
+#Scrapper1.buscar_link()
+#Scrapper1.buscar_disponibilidad()
+#Scrapper1.crear_productos()
+#Scrapper1.mostrar_productos()
 
-Scrapper2=FallabelaScrapper ("teclado")
-Scrapper2.parsear_json()
-Scrapper2.buscar_nombre()
-Scrapper2.buscar_marca()
-Scrapper2.buscar_link()
-(Scrapper2.buscar_precio())
-Scrapper2.buscar_descuento()
-Scrapper2.crear_productos()
-Scrapper2.mostrar_productos()
+#Scrapper2=FallabelaScrapper ("teclado")
+#Scrapper2.parsear_json()
+#Scrapper2.buscar_nombre()
+##Scrapper2.buscar_marca()
+#Scrapper2.buscar_link()
+#(Scrapper2.buscar_precio())
+##Scrapper2.buscar_descuento()
+#Scrapper2.crear_productos()
+#Scrapper2.mostrar_productos()
+
+Scraper3=WikipediaScrapper("audifonos")
+Scraper3.parsear_pagina()
+Scraper3.obtener_nombre_pagina()
+Scraper3.obtener_titulos()
+Scraper3.obtener_parrafos()
