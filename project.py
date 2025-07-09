@@ -5,6 +5,8 @@ import pdb
 from collections import namedtuple
 
 
+
+
 class WebScrapper:
     def __init__(self, objeto: str):
         self._objeto = objeto
@@ -65,9 +67,9 @@ class WikipediaScrapper(WebScrapperEstatico):
         if self._objeto == "audifonos":
             url = "https://es.wikipedia.org/wiki/Audífono"
         elif self._objeto == "mouse":
-            url = "https://www.panamericana.com.co/mouse?_q=mouse&map=ft&"
+            url = "https://es.wikipedia.org/wiki/Ratón_(informática)"
         elif self._objeto == "teclado":
-            url = "https://www.panamericana.com.co/teclado?_q=teclado&map=ft&"
+            url = "https://es.wikipedia.org/wiki/Teclado_(informática)"
 
         self.response = requests.get(url, timeout=10)
         if self.response.status_code != 200:
@@ -81,13 +83,21 @@ class WikipediaScrapper(WebScrapperEstatico):
     def obtener_titulos(self):
         tittles=self.soup.find_all(["h2"])
         self.titles=[
-            (tittle.text.strip())
+            tittle.text.strip()
             for tittle in tittles
         ]
-            
+        print(self.titles)
+        print(len(self.titles))
+
     def obtener_parrafos(self):
-        paragraphs=self.soup.find_all( id="bodyContent")
-        
+        paragraphs=self.soup.find_all("p")
+        self.paragraphs=[
+            paragraph.text.strip()
+            for paragraph in paragraphs
+        ]
+        print(self.paragraphs)
+        print(len(self.paragraphs))
+
 
 class PanamericanaScrapper(WebScrapperDinamico):
     def __init__(self, objeto: str):
@@ -236,7 +246,7 @@ class FallabelaScrapper(WebScrapperDinamico):
                 response = requests.get(url_modified, headers=headers, timeout=10)
                 if response.status_code != 200:
                     raise ConnectionError("No se pudo conectar")
-                
+
                 soup = BeautifulSoup(response.text, "lxml")
                 script = soup.find("script", attrs={"id": "__NEXT_DATA__"})
                 raw_json = json.loads(script.get_text())
