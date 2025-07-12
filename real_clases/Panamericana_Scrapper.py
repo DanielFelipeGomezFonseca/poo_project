@@ -5,13 +5,14 @@ import json
 
 from abstract_clases.abscract_clases import WebScrapperDinamico
 
+
 class PanamericanaScrapper(WebScrapperDinamico):
     def __init__(self, objeto: str):
-        super().__init__(objeto)
+        super().__init__(objeto) ###
         self.pagina="Panamericana"
 
     def parsear_json(self) -> None:
-        self.data = []
+        self.data = [] ##Aqui se guardan los datos
         if self._objeto == "audifonos":
             url = "https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&"
         elif self._objeto == "mouse":
@@ -24,6 +25,7 @@ class PanamericanaScrapper(WebScrapperDinamico):
                 print(f"Scrapeando pagina {page}")
                 url_modified = url + f"page={page}"
                 response = requests.get(url_modified, timeout=10)
+
                 if response.status_code != 200:
                     raise ConnectionError("No se pudo conectar")
                 soup = BeautifulSoup(response.text, "lxml")
