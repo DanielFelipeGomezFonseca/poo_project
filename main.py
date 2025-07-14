@@ -29,5 +29,7 @@ from real_clases.Alkosto_Scrapper import AlkostoWebScrapper
 # Scraper3.obtener_titulos()
 # Scraper3.obtener_parrafos()
 
-scraper4=AlkostoWebScrapper("audofnos")
+scraper4=AlkostoWebScrapper("audifonos")
 scraper4.parsear_json()
+scraper4.buscar_marca()
+scraper4.buscar_nombre()
