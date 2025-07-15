@@ -13,6 +13,7 @@ from real_clases.Alkosto_Scrapper import AlkostoWebScrapper
 # Scrapper1.crear_productos()
 # Scrapper1.mostrar_productos()
 
+
 # Scrapper2=FallabelaScrapper ("teclado")
 # Scrapper2.parsear_json()
 # Scrapper2.buscar_nombre()
@@ -33,3 +34,7 @@ scraper4=AlkostoWebScrapper("audifonos")
 scraper4.parsear_json()
 scraper4.buscar_marca()
 scraper4.buscar_nombre()
+scraper4.buscar_precio()
+scraper4.buscar_descuento()
+scraper4.crear_productos()
+scraper4.mostrar_productos()
