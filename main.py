@@ -32,6 +32,7 @@ from real_clases.Alkosto_Scrapper import AlkostoWebScrapper
 
 scraper4=AlkostoWebScrapper("audifonos")
 scraper4.parsear_json()
+scraper4.buscar_link()
 scraper4.buscar_marca()
 scraper4.buscar_nombre()
 scraper4.buscar_precio()

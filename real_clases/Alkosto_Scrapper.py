@@ -15,41 +15,47 @@ class AlkostoWebScrapper(WebScrapperDinamico):
         option= Options()
         option.add_argument("--headless")
         option.add_argument("--log-level=3")
-
-        while True:
-            self.driver = webdriver.Chrome(options=option)
-            self.driver.get("https://www.alkosto.com/search?text=audifonos")
-            time.sleep(5)
+        self.driver = webdriver.Chrome(options=option)
+        self.driver.get("https://www.alkosto.com/search?text=audifonos")
+        time.sleep(5)
     
+
     def buscar_nombre(self):
         names = self.driver.find_elements(By.XPATH, '//h3[contains(@class, "product__item__top__title") and @data-index]')
-        self.names=[
-            name.text for name in names
-        ]
+        if not names:
+            raise Exception("No se encontró ningún nombre de producto.")
+        self.names = [name.text for name in names]
 
     def buscar_marca(self):
         marcas = self.driver.find_elements(By.CLASS_NAME, "product__item__information__brand")
-        self.marcas=[
-            marca.text for marca in marcas
-        ]
+        if not marcas:
+            raise Exception("No se encontró ninguna marca.")
+        self.marcas = [marca.text for marca in marcas]
 
     def buscar_precio(self):
-        precios= self.driver.find_elements(By.CLASS_NAME, "price")
-        self.precios=[
-             p.text.strip() for p in precios if p.text.strip()
-        ]
-        print(self.precios)
-    
+        precios = self.driver.find_elements(By.CLASS_NAME, "price")
+        if not precios:
+            raise Exception("No se encontró ningún precio.")
+        self.precios = [p.text.strip() for p in precios if p.text.strip()]
+
+    def buscar_link(self):
+        links = self.driver.find_elements(By.CLASS_NAME, "product__item__top__link")
+        if not links:
+            raise Exception("No se encontró ningún enlace de producto.")
+        self.links = [link.get_attribute("href") for link in links]
+
     def buscar_descuento(self):
         descuentos = self.driver.find_elements(By.CLASS_NAME, "label-offer")
-        self.descuentos=[
-            descuento.text.strip() if descuento.text.strip() else "0%" for descuento in descuentos
+        if not descuentos:
+            raise Exception("No se encontró ningún descuento.")
+        self.descuentos = [
+            descuento.text.strip() if descuento.text.strip() else "0%" 
+            for descuento in descuentos
         ]
-        print(self.descuentos)
 
     def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "disponibilidad"])
+        product = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento","link" ,"disponibilidad"])
         for i in range(len(self.names)):
             p = product(
                 self.pagina,
@@ -57,13 +63,14 @@ class AlkostoWebScrapper(WebScrapperDinamico):
                 self.marcas[i],
                 self.precios[i],
                 self.descuentos[i],
+                self.links[i],
                 "In stock"
             )
             self.products.append(p)
 
     def mostrar_productos(self):
         for product in self.products:
-            print(product)
+            print(product.nombre)
 
     
 
