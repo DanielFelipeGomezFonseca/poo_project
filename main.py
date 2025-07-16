@@ -13,6 +13,7 @@ Scrapper1.buscar_disponibilidad()
 Scrapper1.crear_productos()
 Scrapper1.mostrar_productos()
 
+
 # Scrapper2=FallabelaScrapper ("teclado")
 # Scrapper2.parsear_json()
 # Scrapper2.buscar_nombre()
@@ -29,7 +30,19 @@ Scrapper1.mostrar_productos()
 # Scraper3.obtener_titulos()
 # Scraper3.obtener_parrafos()
 
+<<<<<<< HEAD
 #scraper4=AlkostoWebScrapper("audifonos")
 #scraper4.parsear_json()
 #scraper4.buscar_marca()
 #scraper4.buscar_nombre()
+=======
+scraper4=AlkostoWebScrapper("audifonos")
+scraper4.parsear_json()
+scraper4.buscar_link()
+scraper4.buscar_marca()
+scraper4.buscar_nombre()
+scraper4.buscar_precio()
+scraper4.buscar_descuento()
+scraper4.crear_productos()
+scraper4.mostrar_productos()
+>>>>>>> 49be98605f221e2c182e4d9e7d66fbc46094db6a
