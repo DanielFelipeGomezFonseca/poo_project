@@ -127,4 +127,4 @@ class PanamericanaScrapper(WebScrapperDinamico):
 
     def mostrar_productos(self):
         for product in self.products:
-            print(product)
+            print(product.precio)

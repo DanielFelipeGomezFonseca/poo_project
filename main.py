@@ -1,17 +1,17 @@
 from real_clases.Fallabela_Scrapper import FallabelaScrapper
 from real_clases.Panamericana_Scrapper import PanamericanaScrapper
 from real_clases.Wikipedia_Scrapper import WikipediaScrapper
-from real_clases.Alkosto_Scrapper import AlkostoWebScrapper
+#from real_clases.Alkosto_Scrapper import AlkostoWebScrapper
 
-# Scrapper1=PanamericanaScrapper("audifonos")
-# Scrapper1.parsear_json()
-# Scrapper1.buscar_nombre()
-# Scrapper1.buscar_precio()
-# Scrapper1.buscar_marca()
-# Scrapper1.buscar_link()
-# Scrapper1.buscar_disponibilidad()
-# Scrapper1.crear_productos()
-# Scrapper1.mostrar_productos()
+Scrapper1=PanamericanaScrapper("audifonos")
+Scrapper1.parsear_json()
+Scrapper1.buscar_nombre()
+Scrapper1.buscar_precio()
+Scrapper1.buscar_marca()
+Scrapper1.buscar_link()
+Scrapper1.buscar_disponibilidad()
+Scrapper1.crear_productos()
+Scrapper1.mostrar_productos()
 
 # Scrapper2=FallabelaScrapper ("teclado")
 # Scrapper2.parsear_json()
@@ -29,7 +29,7 @@ from real_clases.Alkosto_Scrapper import AlkostoWebScrapper
 # Scraper3.obtener_titulos()
 # Scraper3.obtener_parrafos()
 
-scraper4=AlkostoWebScrapper("audifonos")
-scraper4.parsear_json()
-scraper4.buscar_marca()
-scraper4.buscar_nombre()
+#scraper4=AlkostoWebScrapper("audifonos")
+#scraper4.parsear_json()
+#scraper4.buscar_marca()
+#scraper4.buscar_nombre()
