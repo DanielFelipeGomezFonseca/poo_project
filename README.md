@@ -13,13 +13,13 @@ Las variables que se tienen en cuenta son:
 
 - Precio
 
-- Empresa fabricante
+- Marca
 
 - Modelo
 
-- Año de lanzamiento
+- Disponibilidad
 
-- Funcionalidades
+- Descuento (si aplica)
 
 
 La aplicación facilita la búsqueda de productos para el usuario. Para ello, realiza la recolección de datos desde plataformas de comercio electrónico como Alkosto,   Panamericana.
