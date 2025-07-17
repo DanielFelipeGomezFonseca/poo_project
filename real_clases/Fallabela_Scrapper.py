@@ -7,13 +7,14 @@ from abstract_clases.abscract_clases import WebScrapperDinamico
 
 
 class FallabelaScrapper(WebScrapperDinamico):
-   def __init__(self, objeto: str):
+    #! Todos los atributos estan en privado, no se quiere q se accedan fuera de la clase
+    def __init__(self, objeto: str):
         super().__init__(objeto)
-        self.pagina="Fallabela"
+        self.__pagina = "Fallabela"
 
-   def parsear_json(self) -> None:
-        
-        self.data=[]
+    #! Funcion mas importante, extrae los datos json del sitio
+    def parsear_json(self) -> None: 
+        self.__data = []
 
         if self._objeto == "audifonos":
             url = "https://www.falabella.com.co/falabella-co/category/cat50670/Audifonos?sred=audifonos&"
@@ -23,6 +24,7 @@ class FallabelaScrapper(WebScrapperDinamico):
             url = "https://www.falabella.com.co/falabella-co/search?Ntt=teclado&"
 
         headers = {"User-Agent": "Mozilla/5.0"}
+        
         try:
             page = 1
             while True:
@@ -36,14 +38,14 @@ class FallabelaScrapper(WebScrapperDinamico):
                 script = soup.find("script", attrs={"id": "__NEXT_DATA__"})
                 raw_json = json.loads(script.get_text())
 
+                ##! En este codigo se encuentra el BREAK, el pq de esto se encuentra en el git
                 try:
                     productos = raw_json["props"]["pageProps"]["results"] 
-                except KeyError:             
+                except KeyError:
                     print(f"La pagina {page - 1} es la ultima pagina")
                     break
 
-                self.data.append(productos)
-
+                self.__data.append(productos)
                 page += 1
                 
         except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
@@ -51,81 +53,78 @@ class FallabelaScrapper(WebScrapperDinamico):
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
 
-   def buscar_nombre(self):
-      
+    #! Uso list_C para todas las funciones, mas info per repo
+    def buscar_nombre(self):
         try:
-            self.names=[
-            d_1["displayName"]
-            for Json in self.data
-            for d_1 in Json
-        ] 
+            self.__names = [
+                producto["displayName"]
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
         except Exception as error:
             print(f"Hay error {error}")
     
-   def buscar_marca(self) -> list:
-       
+    def buscar_marca(self) -> list:
         try:
-            self.marcas=[
-            d_1["topSpecifications"][0]
-            if len(d_1["topSpecifications"]) != 0
-            else
-            "No se encontro la marca"
-            for Json in self.data
-            for d_1 in Json
-        ]
+            self.__marcas = [
+                producto["topSpecifications"][0]
+                if len(producto["topSpecifications"]) != 0
+                else "No se encontro la marca"
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
         except Exception as error:
             print(f"Hay error {error}")
 
-   def buscar_link(self) -> list:
-       
-       try:
-            self.links=[
-            d_1["url"]
-            for Json in self.data
-            for d_1 in Json
-        ] 
-       except Exception as error:
+    def buscar_link(self) -> list:
+        try:
+            self.__links = [
+                producto["url"]
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
+        except Exception as error:
             print(f"Hay error {error}")
    
-   def buscar_precio(self) -> list:       
-       try:
-         self.precios=[
-            d_1["prices"][0]["price"]
-            for Json in self.data
-            for d_1 in Json
-        ]     
-       except Exception as error:
-            print(f"Hay error {error}")
-
-   def buscar_descuento(self) -> list:
-       try:
-           self.descuentos=[
-            d_1["discountBadge"]["label"]
-            if "discountBadge" in d_1.keys()
-            else
-            "0"
-            for Json in self.data
-            for d_1 in Json 
+    def buscar_precio(self) -> list:
+        try:
+            self.__precios = [
+                producto["prices"][0]["price"]
+                for lista_productos in self.__data
+                for producto in lista_productos
             ]
-       except Exception as error:
+        except Exception as error:
             print(f"Hay error {error}")
 
-   def crear_productos(self) -> list:
-        self.products = []
-        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio","descuento", "link","disponibilidad" ])
-        for i in range(len(self.names)):
-            p = product(
-                self.pagina,
-                self.names[i],
-                self.marcas[i],
-                self.precios[i],
-                self.descuentos[i],
-                self.links[i],
-                "In stock"
-                
-            )
-            self.products.append(p)
+    def buscar_descuento(self) -> list:
+        try:
+            self.__descuentos = [
+                producto["discountBadge"]["label"]
+                if "discountBadge" in producto
+                else "0"
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
+        except Exception as error:
+            print(f"Hay error {error}")
+   
 
-   def mostrar_productos(self):
-        for product in self.products:
+    def crear_productos(self) -> list:
+        ##! Se guardan los productos como una named_tuple, con distintos atributos y se guarda en self.__products
+        self.__products = []
+        producto = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "link", "disponibilidad"])
+        for i in range(len(self.__names)):
+            p = producto(
+                self.__pagina,
+                self.__names[i],
+                self.__marcas[i],
+                self.__precios[i],
+                self.__descuentos[i],
+                self.__links[i],
+                "In stock"
+            )
+            self.__products.append(p)
+
+    def mostrar_productos(self):
+        for product in self.__products:
             print(product)

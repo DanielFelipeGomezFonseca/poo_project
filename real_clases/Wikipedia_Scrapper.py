@@ -34,8 +34,6 @@ class WikipediaScrapper(WebScrapperEstatico):
             tittle.text.strip()
             for tittle in tittles
         ]
-        print(self.titles)
-        print(len(self.titles))
 
     def obtener_parrafos(self):
         paragraphs=self.soup.find_all("p")
@@ -43,4 +41,9 @@ class WikipediaScrapper(WebScrapperEstatico):
             paragraph.text.strip()
             for paragraph in paragraphs
         ]
-        
+ 
+    def crear_json(self):
+        self.dict={"Titulo": self.name, "Cabezales": self.titles , "Parrafos": self.paragraphs}
+    
+    def mostrar_json(self):
+        print(self.dict)
