@@ -143,7 +143,7 @@ Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda l
 
 ## Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucoin definitiva:
-Panamericana Scrapper: 
+### Panamericana Scrapper: 
 La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup
 ```python
 
@@ -189,16 +189,16 @@ Imagen de la structura Json de PANAMERICANA
 
 Un problema que sucedio es que los productos estan separados por paginas, es decir distintos links con un numero distinto, entonces para esto se aplica la funcion WHILE, que con un contador va recorriendo cada pagina. Es importante mencionar que el Break, se hizo asi porque normalemente request saca dos scripts, pero cuando la pagina no contiene productos el segundo script (por eso el indice [1]), entonces asi identifico cual #page tenia los elementos. 
 
-## Excepciones
+###  Excepciones
 Se usan excepciones en todas las funciones, por si ocurre un error no se afecta el parseo (en especial la primera funcion, la mas importante) Existen algunas respuestas personalizadas de la libreria request.
 
-## Python y las List_C
+### Python y las List_C
 Para implementar las funciones que buscan cierto tipo de datos, se uso list_C, esto se debe a que luego de hacer el codigo con varios for, se reflexiono de la facilidad que las List_C daban. Posteriomente se muestra una comparacion tomando como ejemplo la funcion Buscar_Precio
+
 List_c
----
 <img width="908" height="295" alt="image" src="https://github.com/user-attachments/assets/27430a77-f229-493e-8ce8-804345118e1d" />
 ---
----
+
 No List_C
 <img width="631" height="421" alt="image" src="https://github.com/user-attachments/assets/f65e7573-4132-43e8-ac35-c715bfd3c71b" />
 ---
