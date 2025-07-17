@@ -141,3 +141,45 @@ Uso de librerias: Request, Beatiful Soap, Selenium:
 Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda la informacion, aqui se muestra el ejemplo con panamericana
 ![image](https://github.com/user-attachments/assets/36c573f7-e729-452b-b1bd-ef379530cef2)
 
+## Solucion Definitiva:}
+Se mostraran aspectos importantes de la solucoin definitiva:
+Panamericana Scrapper: 
+La funcion mas importante se presenta a continuacion
+ def parsear_json(self) -> None:
+        self.__data = []
+        if self._objeto == "audifonos":
+            url = "https://www.panamericana.com.co/audifonos?_q=audifonos&map=ft&"
+        elif self._objeto == "mouse":
+            url = "https://www.panamericana.com.co/mouse?_q=mouse&map=ft&"
+        elif self._objeto == "teclado":
+            url = "https://www.panamericana.com.co/teclado?_q=teclado&map=ft&"
+        try:
+            page = 1
+            ####? Se usa un while True para recorrer pagina por pagina 
+            while True:
+                print(f"Scrapeando pagina {page}")
+                url_modified = url + f"page={page}"
+                response = requests.get(url_modified, timeout=10)
+```python
+
+                if response.status_code != 200:
+                    raise ConnectionError("No se pudo conectar")
+                soup = BeautifulSoup(response.text, "lxml")
+                scripts = soup.find_all("script", type="application/ld+json")
+
+                #! En esta seccion de codigo se encuentra el BREAK, el detalle de eso esta en el github
+                try:
+                    raw_data = json.loads(scripts[1].string)
+                except IndexError:
+                    print(f"La pagina {page - 1} es la ultima pagina")
+                    break
+
+                self.__data.append(raw_data)
+                page += 1
+
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
+            print(f"Existe este {error}")
+        except KeyboardInterrupt as f_error:
+            print(f"{f_error}")
+
+```
