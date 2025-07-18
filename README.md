@@ -141,6 +141,8 @@ Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda l
 
 Esto es util para cuando requests no funciona, debido a que en algunas paginas, todo el contenido se carca dinamicamente por medio de JSON. 
 
+<img width="1000" height="420" alt="image" src="https://github.com/user-attachments/assets/9d6de22e-dfb8-4173-9077-53eecb00e058" />
+
 
 # Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
