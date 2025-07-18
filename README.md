@@ -278,7 +278,7 @@ Con fallabela tambien sucede algo similar a panamericana, busco la API que la pa
         except KeyboardInterrupt as f_error:
             print(f"{f_error}"
 ```
-### API de Fallabela 
+### API Falabella 
 <img width="1371" height="592" alt="image" src="https://github.com/user-attachments/assets/d71e1754-6dfc-41e5-abba-7889adbab8e8" />
 Como se puede ver la API de fallabela es completamente diferente a la de panamericana, por lo que todos los metodos van a ser diferentes. 
 
