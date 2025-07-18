@@ -201,7 +201,7 @@ Se usan excepciones en todas las funciones, por si ocurre un error no se afecta 
 ### Python y las List_C
 Para implementar las funciones que buscan cierto tipo de datos, se uso list_C, esto se debe a que luego de hacer el codigo con varios for, se reflexiono de la facilidad que las List_C daban. Posteriomente se muestra una comparacion tomando como ejemplo la funcion Buscar_Precio
 
-### List_c
+### List_C
 ```python
 
     def buscar_precio(self) -> list:
