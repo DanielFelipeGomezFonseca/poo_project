@@ -277,3 +277,4 @@ class FallabelaScrapper(WebScrapperDinamico):
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
 ```
+Asimismo este codigo funciona de manera similar al de Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
