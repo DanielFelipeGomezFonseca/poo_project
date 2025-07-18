@@ -123,7 +123,7 @@ Usuario --> MostrarProductos : usa
 
 ```
 
-## Solucion preliminar
+## Librerias fundamentales
 ### Beautif Soup + Requests
 
 Uso de librerias: Request, Beatiful Soap, Selenium:
