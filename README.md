@@ -288,4 +288,5 @@ Como se puede ver la API de fallabela es completamente diferente a la de panamer
 ### While y Break
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 
+# Alkosto Scrapper
 
