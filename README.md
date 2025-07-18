@@ -31,7 +31,7 @@ En algunas ocaciones se pierde mucho tiempo al buscar este tipo de perifericos, 
 ![image](https://github.com/user-attachments/assets/1e49e1f9-ec8f-417a-b000-44348ff5b7c1)
 
 
-
+# Solucion preliminar
 ## Diagrama de Clase 1: Funcionamiento del scrapper
 
 ```mermaid
