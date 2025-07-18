@@ -144,7 +144,7 @@ Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda l
 ## Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
 ### Panamericana Scrapper: 
-La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que puedo hallar la API que la pagina pide cuando toma datos. 
+La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que puedo hallar la API que la pagina pide.  
 ```python
 
  def parsear_json(self) -> None:
