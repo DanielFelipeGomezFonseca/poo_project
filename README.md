@@ -127,7 +127,7 @@ Usuario --> MostrarProductos : usa
 ### Beautif Soup + Requests
 
 Uso de librerias: Request, Beatiful Soap, Selenium:
--Requests: se usa para obtener el contenido de la web haciendo una peticion  HTTP, y luego poderlo parsear usando otra libreria. Esta libreria es muy buena y muy confiable
+-Requests: se usa para obtener el contenido de la web haciendo una peticion  HTTP, y luego poderlo parsear usando otra libreria. Esta libreria es muy buena y muy confiable. Solo se puede utilizar cuando el contenido se carga estaticamente, es decir esta en la estructura HTML
 
 -BeatifulSoap: Esto se usa para parsear las paginas web, es decir para  analizar y extraer el json del html, en caso de que se nescecite. La libreria es ampliamente utilizada y recomendada, ademas no es dificil de utilizar
 ![image](https://github.com/user-attachments/assets/f0bc22d3-32f3-49e6-8bd5-ee8c62c06a5b)
@@ -139,7 +139,7 @@ Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda l
 
 -Selenium: Se usa para controlar a un navegador desde Python (depende de lo que la pagina pida)
 
-Esto es util para cuando requests no funciona, debido a que en algunas paginas, todo el contenido se carca dinamicamente. 
+Esto es util para cuando requests no funciona, debido a que en algunas paginas, todo el contenido se carca dinamicamente por medio de JSON. 
 
 
 # Solucion Definitiva :v
