@@ -144,6 +144,7 @@ Esto es util para cuando requests no funciona, debido a que en algunas paginas, 
 
 # Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
+# Web scrappers dinamicos (corresponden a una pagina web de servicios: 
 ## Panamericana Scrapper: 
 La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que en la pagina html, puedo hallar la API que la pagina pide al solicitar datos al servidor.   
 ```python
