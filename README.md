@@ -184,6 +184,7 @@ La funcion mas importante se presenta a continuacion, esta funcion busca el json
             print(f"{f_error}")
 
 ```
+## API PANAMERICANA 
 Imagen de la structura Json de PANAMERICANA
 <img width="1453" height="641" alt="image" src="https://github.com/user-attachments/assets/428cc6c7-53dd-4ba4-99d1-d69d7ab09cbd" />
 
@@ -278,3 +279,5 @@ class FallabelaScrapper(WebScrapperDinamico):
             print(f"{f_error}")
 ```
 Asimismo este codigo funciona de manera similar al de Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
+## API de Fallabela 
+<img width="1371" height="592" alt="image" src="https://github.com/user-attachments/assets/d71e1754-6dfc-41e5-abba-7889adbab8e8" />
