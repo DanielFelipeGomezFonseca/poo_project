@@ -282,6 +282,23 @@ Con fallabela tambien sucede algo similar a panamericana, busco la API que la pa
 <img width="1371" height="592" alt="image" src="https://github.com/user-attachments/assets/d71e1754-6dfc-41e5-abba-7889adbab8e8" />
 Como se puede ver la API de fallabela es completamente diferente a la de panamericana, por lo que todos los metodos van a ser diferentes. 
 
+### List_C
+```python
+
+    def buscar_marca(self) -> list:
+        try:
+            self.__marcas = [
+                producto["topSpecifications"][0]
+                if len(producto["topSpecifications"]) != 0
+                else "No se encontro la marca"
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
+        except Exception as error:
+            print(f"Hay error {error}")
+```
+
+### No List_C
 
 ### While y Break
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
