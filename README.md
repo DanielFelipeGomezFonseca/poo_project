@@ -281,3 +281,5 @@ class FallabelaScrapper(WebScrapperDinamico):
 Asimismo este codigo funciona de manera similar al de Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 ## API de Fallabela 
 <img width="1371" height="592" alt="image" src="https://github.com/user-attachments/assets/d71e1754-6dfc-41e5-abba-7889adbab8e8" />
+Como se puede ver la API de fallabela es completamente diferente a la de panamericana, por lo que todos los metodos van a ser diferentes. 
+
