@@ -144,7 +144,7 @@ Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda l
 ## Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
 ### Panamericana Scrapper: 
-La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que puedo hallar la API que la pagina pide al solicitar datos al servidor.   
+La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que en la pagina html, puedo hallar la API que la pagina pide al solicitar datos al servidor.   
 ```python
 
  def parsear_json(self) -> None:
@@ -229,4 +229,51 @@ def buscar_precio(self) -> list:
             print(f"Hay error {error}")
 ```
 ### Fallabela Scrapper: 
-Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor 
+Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup, porque esos datos los puedo encontrar en la estructura Html
+```python
+
+class FallabelaScrapper(WebScrapperDinamico):
+   def __init__(self, objeto: str):
+        super().__init__(objeto)
+        self.pagina="Fallabela"
+
+   def parsear_json(self) -> None:
+        
+        self.data=[]
+
+        if self._objeto == "audifonos":
+            url = "https://www.falabella.com.co/falabella-co/category/cat50670/Audifonos?sred=audifonos&"
+        elif self._objeto == "mouse":
+            url = "https://www.falabella.com.co/falabella-co/search?Ntt=mouse&"
+        elif self._objeto == "teclado":
+            url = "https://www.falabella.com.co/falabella-co/search?Ntt=teclado&"
+
+        headers = {"User-Agent": "Mozilla/5.0"}
+        try:
+            page = 1
+            while True:
+                print(f"Scrapeando pagina {page}")
+                url_modified = url + f"page={page}"
+                response = requests.get(url_modified, headers=headers, timeout=10)
+                if response.status_code != 200:
+                    raise ConnectionError("No se pudo conectar")
+
+                soup = BeautifulSoup(response.text, "lxml")
+                script = soup.find("script", attrs={"id": "__NEXT_DATA__"})
+                raw_json = json.loads(script.get_text())
+
+                try:
+                    productos = raw_json["props"]["pageProps"]["results"] 
+                except KeyError:             
+                    print(f"La pagina {page - 1} es la ultima pagina")
+                    break
+
+                self.data.append(productos)
+
+                page += 1
+                
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
+            print(f"Existe este {error}")
+        except KeyboardInterrupt as f_error:
+            print(f"{f_error}")
+```
