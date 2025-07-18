@@ -238,14 +238,8 @@ def buscar_precio(self) -> list:
 Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup, porque esos datos los puedo encontrar en la estructura Html
 ```python
 
-class FallabelaScrapper(WebScrapperDinamico):
-   def __init__(self, objeto: str):
-        super().__init__(objeto)
-        self.pagina="Fallabela"
-
-   def parsear_json(self) -> None:
-        
-        self.data=[]
+ def parsear_json(self) -> None: 
+        self.__data = []
 
         if self._objeto == "audifonos":
             url = "https://www.falabella.com.co/falabella-co/category/cat50670/Audifonos?sred=audifonos&"
@@ -255,6 +249,7 @@ class FallabelaScrapper(WebScrapperDinamico):
             url = "https://www.falabella.com.co/falabella-co/search?Ntt=teclado&"
 
         headers = {"User-Agent": "Mozilla/5.0"}
+        
         try:
             page = 1
             while True:
@@ -268,20 +263,20 @@ class FallabelaScrapper(WebScrapperDinamico):
                 script = soup.find("script", attrs={"id": "__NEXT_DATA__"})
                 raw_json = json.loads(script.get_text())
 
+                ##! En este codigo se encuentra el BREAK, el pq de esto se encuentra en el git
                 try:
                     productos = raw_json["props"]["pageProps"]["results"] 
-                except KeyError:             
+                except KeyError:
                     print(f"La pagina {page - 1} es la ultima pagina")
                     break
 
-                self.data.append(productos)
-
+                self.__data.append(productos)
                 page += 1
                 
         except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
             print(f"Existe este {error}")
         except KeyboardInterrupt as f_error:
-            print(f"{f_error}")
+            print(f"{f_error}"
 ```
 ### API de Fallabela 
 <img width="1371" height="592" alt="image" src="https://github.com/user-attachments/assets/d71e1754-6dfc-41e5-abba-7889adbab8e8" />
