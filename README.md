@@ -299,7 +299,22 @@ Como se puede ver la API de fallabela es completamente diferente a la de panamer
 ```
 
 ### No List_C
+```python
 
+def buscar_marca(self) -> list:
+        self.marcas = []
+        try:
+            for Json in self.data:
+               for d_1 in Json:
+                   first_step=d_1["topSpecifications"]
+                   if len(first_step) != 0:
+                    d_2=first_step[0]
+                    self.marcas.append(d_2)
+                   else: 
+                       self.marcas.append("No se encontro la marca")
+        except Exception as error:
+            print(f"Hay error {error}")
+```
 ### While y Break
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 
