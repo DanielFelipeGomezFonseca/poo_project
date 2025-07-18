@@ -146,9 +146,9 @@ Esto es util para cuando requests no funciona, debido a que en algunas paginas, 
 
 # Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
-# Web scrappers dinamicos (corresponden a una pagina web de servicios: 
+# Web scrappers dinamicos (corresponden a una pagina web de servicios) 
 ## Panamericana Scrapper: 
-La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que en la pagina html, puedo hallar la API que la pagina pide al solicitar datos al servidor.   
+La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup
 ```python
 
  def parsear_json(self) -> None:
@@ -235,7 +235,7 @@ def buscar_precio(self) -> list:
             print(f"Hay error {error}")
 ```
 ## Fallabela Scrapper: 
-Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup, porque esos datos los puedo encontrar en la estructura Html
+Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup.
 ```python
 
  def parsear_json(self) -> None: 
