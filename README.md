@@ -146,7 +146,7 @@ Esto es util para cuando requests no funciona, debido a que en algunas paginas, 
 # Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
 # Web scrappers dinamicos (corresponden a una pagina web de servicios) 
-## Panamericana Scrapper: 
+## Panamericana Scrapper (pseudo dinamico): 
 La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup
 ```python
 
@@ -233,7 +233,7 @@ def buscar_precio(self) -> list:
         except Exception as error:
             print(f"Hay error {error}")
 ```
-## Fallabela Scrapper: 
+## Fallabela Scrapper (pseudo dinamico): 
 Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup.
 ```python
 
@@ -317,5 +317,6 @@ def buscar_marca(self) -> list:
 ### While y Break
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 
-# Alkosto Scrapper
+# Alkosto Scrapper (dinamico de verdad)
+A diferencia de los dos anteriores, en alkosto no se puede usar request, porque la pagina carga todo desde un archivo dinamico JSON. Por lo que toca utilizar selenium 
 
