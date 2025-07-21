@@ -200,6 +200,31 @@ Esto es util para cuando requests no funciona, debido a que en algunas paginas, 
 
 # Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
+# Diagramas de clase
+```mermaid
+
+Relacion entre scrappers
+    class WebScraper {
+        <<abstract>>
+    }
+
+    class WebScraperEstatico
+    class WebScraperDinamico
+
+    class WikipediaScraper
+    class PanamericanaScraper
+    class AlkostoScraper
+    class FalabellaScraper
+
+    WebScraper <|-- WebScraperEstatico
+    WebScraper <|-- WebScraperDinamico
+
+    WebScraperEstatico <|-- WikipediaScraper
+
+    WebScraperDinamico <|-- PanamericanaScraper
+    WebScraperDinamico <|-- AlkostoScraper
+    WebScraperDinamico <|-- FalabellaScraper
+```
 # Web scrappers dinamicos (corresponden a una pagina web de servicios) 
 ## Panamericana Scrapper (pseudo dinamico): 
 La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup
