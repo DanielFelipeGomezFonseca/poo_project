@@ -4,7 +4,6 @@ from abstract_clases.abscract_clases import Menu
 class MenuMarcas(Menu):
     def __init__(self, options):
         super().__init__(options)
-
     # Imprime un numero empezando en 1 hasta n cantidad de elementos que tenga el atributo options
     def display(self):
         for i in range(len(self.options)):

@@ -129,7 +129,6 @@ class FallabelaScrapper(WebScrapperDinamico):
             )
             self.products.append(p)
         return self.products
-
     def mostrar_productos(self):
         for product in self.products:
             print(product)
