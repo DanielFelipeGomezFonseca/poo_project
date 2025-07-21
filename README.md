@@ -158,6 +158,7 @@ Relacion entre scrappers
     }
 
     class WebScraperEstatico {
+  objeto_scrapear: str
   __init__(objeto_scrapear: str) 
   buscar_titulo()
   buscar_headings()
@@ -165,6 +166,7 @@ Relacion entre scrappers
 
 }
     class WebScraperDinamico {
+  objeto_scrapear: str
   __init__(objeto_scrapear: str) 
   +parsear_json() -> Json
   +buscar_nombre() -> str
