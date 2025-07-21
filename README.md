@@ -318,5 +318,6 @@ def buscar_marca(self) -> list:
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 
 # Alkosto Scrapper (dinamico de verdad)
-A diferencia de los dos anteriores, en alkosto no se puede usar request, porque la pagina carga todo desde un archivo dinamico JSON. Por lo que toca utilizar selenium 
+A diferencia de los dos anteriores, en alkosto no se puede usar request, porque la pagina carga todo desde un archivo dinamico JSON. Por lo que toca utilizar selenium, Posteriormente se muestra la funcion para simular chrome y extraer los datos. 
+
 
