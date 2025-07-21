@@ -133,7 +133,6 @@ Uso de librerias: Request, Beatiful Soap, Selenium:
 ![image](https://github.com/user-attachments/assets/f0bc22d3-32f3-49e6-8bd5-ee8c62c06a5b)
 
 Con beautiful soap la idea es hallar y extraer estos scrips que contienen toda la informacion, aqui se muestra el ejemplo con panamericana
-![image](https://github.com/user-attachments/assets/36c573f7-e729-452b-b1bd-ef379530cef2)
 
 ## Selenium
 
@@ -146,9 +145,9 @@ Esto es util para cuando requests no funciona, debido a que en algunas paginas, 
 
 # Solucion Definitiva :v
 Se mostraran aspectos importantes de la solucion definitiva:
-# Web scrappers dinamicos (corresponden a una pagina web de servicios: 
+# Web scrappers dinamicos (corresponden a una pagina web de servicios) 
 ## Panamericana Scrapper: 
-La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup debido a que en la pagina html, puedo hallar la API que la pagina pide al solicitar datos al servidor.   
+La funcion mas importante se presenta a continuacion, esta funcion busca el json de "respuesta" que da la pagina luego de conectarse. Para esto se usan las librerias Request y BeatifulSoup
 ```python
 
  def parsear_json(self) -> None:
@@ -201,7 +200,7 @@ Se usan excepciones en todas las funciones, por si ocurre un error no se afecta 
 ### Python y las List_C
 Para implementar las funciones que buscan cierto tipo de datos, se uso list_C, esto se debe a que luego de hacer el codigo con varios for, se reflexiono de la facilidad que las List_C daban. Posteriomente se muestra una comparacion tomando como ejemplo la funcion Buscar_Precio
 
-### List_c
+### List_C
 ```python
 
     def buscar_precio(self) -> list:
@@ -235,7 +234,7 @@ def buscar_precio(self) -> list:
             print(f"Hay error {error}")
 ```
 ## Fallabela Scrapper: 
-Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup, porque esos datos los puedo encontrar en la estructura Html
+Con fallabela tambien sucede algo similar a panamericana, busco la API que la pagina genera al solicitar los datos al servidor. Por esta razon tambien puedo utilizar request + Beautiful Soup.
 ```python
 
  def parsear_json(self) -> None: 
@@ -278,11 +277,43 @@ Con fallabela tambien sucede algo similar a panamericana, busco la API que la pa
         except KeyboardInterrupt as f_error:
             print(f"{f_error}"
 ```
-### API de Fallabela 
+### API Falabella 
 <img width="1371" height="592" alt="image" src="https://github.com/user-attachments/assets/d71e1754-6dfc-41e5-abba-7889adbab8e8" />
 Como se puede ver la API de fallabela es completamente diferente a la de panamericana, por lo que todos los metodos van a ser diferentes. 
 
+### List_C
+```python
 
+    def buscar_marca(self) -> list:
+        try:
+            self.__marcas = [
+                producto["topSpecifications"][0]
+                if len(producto["topSpecifications"]) != 0
+                else "No se encontro la marca"
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
+        except Exception as error:
+            print(f"Hay error {error}")
+```
+
+### No List_C
+```python
+
+def buscar_marca(self) -> list:
+        self.marcas = []
+        try:
+            for Json in self.data:
+               for d_1 in Json:
+                   first_step=d_1["topSpecifications"]
+                   if len(first_step) != 0:
+                    d_2=first_step[0]
+                    self.marcas.append(d_2)
+                   else: 
+                       self.marcas.append("No se encontro la marca")
+        except Exception as error:
+            print(f"Hay error {error}")
+```
 ### While y Break
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 

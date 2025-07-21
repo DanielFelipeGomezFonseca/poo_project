@@ -7,14 +7,13 @@ from abstract_clases.abscract_clases import WebScrapperDinamico
 
 
 class FallabelaScrapper(WebScrapperDinamico):
-    #! Todos los atributos estan en privado, no se quiere q se accedan fuera de la clase
     def __init__(self, objeto: str):
         super().__init__(objeto)
         self.pagina = "Fallabela"
 
-    #! Funcion mas importante, extrae los datos json del sitio
-    def parsear_json(self) -> None: 
-        self.data = []
+    def parsear_json(self) -> None:
+        
+        self.data=[]
 
         if self._objeto == "audifonos":
             url = "https://www.falabella.com.co/falabella-co/category/cat50670/Audifonos?sred=audifonos&"
@@ -53,8 +52,8 @@ class FallabelaScrapper(WebScrapperDinamico):
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
 
-    #! Uso list_C para todas las funciones, mas info per repo
     def buscar_nombre(self):
+      
         try:
             self.names = [
                 producto["displayName"]
@@ -65,6 +64,7 @@ class FallabelaScrapper(WebScrapperDinamico):
             print(f"Hay error {error}")
     
     def buscar_marca(self) -> list:
+       
         try:
             self.marcas = [
                 producto["topSpecifications"][0]
@@ -77,48 +77,52 @@ class FallabelaScrapper(WebScrapperDinamico):
             print(f"Hay error {error}")
 
     def buscar_link(self) -> list:
-        try:
-            self.links = [
-                producto["url"]
-                for lista_productos in self.data
-                for producto in lista_productos
-            ]
-        except Exception as error:
+       
+       try:
+            self.links=[
+            d_1["url"]
+            for Json in self.data
+            for d_1 in Json
+        ] 
+       except Exception as error:
             print(f"Hay error {error}")
    
-    def buscar_precio(self) -> list:
-        try:
-            self.precios = [
-                producto["prices"][0]["price"][0]
-                for lista_productos in self.data
-                for producto in lista_productos
-            ]
-        except Exception as error:
+    def buscar_precio(self) -> list:       
+       try:
+         self.precios=[
+            d_1["prices"][0]["price"]
+            for Json in self.data
+            for d_1 in Json
+        ]     
+       except Exception as error:
             print(f"Hay error {error}")
 
     def buscar_descuento(self) -> list:
         try:
-            self.descuentos = [
-                producto["discountBadge"]["label"]
-                if "discountBadge" in producto
-                else "0"
-                for lista_productos in self.data
-                for producto in lista_productos
+           self.descuentos=[
+            d_1["discountBadge"]["label"]
+            if "discountBadge" in d_1.keys()
+            else
+            "0"
+            for Json in self.data
+            for d_1 in Json 
             ]
         except Exception as error:
             print(f"Hay error {error}")
    
 
     def crear_productos(self) -> list:
-        ##! Se guardan los productos como una named_tuple, con distintos atributos y se guarda en self.__products
         self.products = []
-        producto = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "link", "disponibilidad"])
+        product = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "link", "disponibilidad"])
+
         for i in range(len(self.names)):
-            p = producto(
+            precio_limpio = int(self.precios[i][0].replace(".", ""))
+
+            p = product(
                 self.pagina,
                 self.names[i],
                 self.marcas[i],
-                self.precios[i],
+                precio_limpio,
                 self.descuentos[i],
                 self.links[i],
                 "In stock"
@@ -128,3 +132,16 @@ class FallabelaScrapper(WebScrapperDinamico):
     def mostrar_productos(self):
         for product in self.products:
             print(product)
+
+    def compilar_precios(self):
+        precios = []
+        for product in self.products:
+            precios.append(product.precio)
+        return precios
+
+    def compilar_marcas(self):
+        marcas = []
+        for product in self.products:
+            if product.marca not in marcas:
+                marcas.append(product.marca)
+        return marcas

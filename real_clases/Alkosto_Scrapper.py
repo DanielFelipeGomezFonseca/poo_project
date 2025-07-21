@@ -61,13 +61,16 @@ class AlkostoWebScrapper(WebScrapperDinamico):
      ##! Se guardan los productos como una named_tuple, con distintos atributos y se guarda en self.__products
     def crear_productos(self) -> list:
         self.products = []
-        producto = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "link", "disponibilidad"])
+        product = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "link", "disponibilidad"])
+
         for i in range(len(self.names)):
-            p = producto(
+            precio_limpio = int(self.precios[i].replace('$', '').replace('.', ''))
+
+            p = product(
                 self.pagina,
                 self.names[i],
                 self.marcas[i],
-                self.precios[i],
+                precio_limpio,
                 self.descuentos[i],
                 self.links[i],
                 "In stock"
@@ -77,3 +80,16 @@ class AlkostoWebScrapper(WebScrapperDinamico):
     def mostrar_productos(self):
         for product in self.products:
             print(product)
+
+    def compilar_precios(self):
+        precios = []
+        for product in self.products:
+            precios.append(product.precio)
+        return precios
+
+    def compilar_marcas(self):
+        marcas = []
+        for product in self.products:
+            if product.marca not in marcas:
+                marcas.append(product.marca)
+        return marcas
