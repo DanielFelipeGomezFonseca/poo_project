@@ -339,4 +339,11 @@ class AlkostoWebScrapper(WebScrapperDinamico):
 ```
 ### Metodo para buscar
 Con este scraper se busca sobre la estructura HTML, entonces se puede buscar por "clase" o por "path", en este scrapper se utiliza ambos. Esa es la principal diferencia entre los dos primeros y este 
+```python
 
+   def buscar_marca(self):
+        marcas = self.driver.find_elements(By.CLASS_NAME, "product__item__information__brand")
+        if not marcas:
+            raise Exception("No se encontró ninguna marca.")
+        self.marcas = [marca.text for marca in marcas]
+```
