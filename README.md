@@ -438,4 +438,20 @@ def crear_productos(self) -> list:
         return self.products
 ```
 # Wikipedia (el verdadero scraper estatico)
-El scraper de wikipedia es muy sencillo simplemente se obtiene la informacion con requests (porque es estatico), y se busca dependiendo del html con BS4 (es diferente a Alkosto pq este no se puede acceder con requests) 
+El scraper de wikipedia es muy sencillo simplemente se obtiene la informacion con requests (porque es estatico), y se busca dependiendo del html con BS4 (es diferente a Alkosto pq este no se puede acceder con requests)
+```python
+
+   #! Funcion mas importante
+    def parsear_pagina(self):
+        if self._objeto == "audifonos":
+            url = "https://es.wikipedia.org/wiki/Audífono"
+        elif self._objeto == "mouse":
+            url = "https://es.wikipedia.org/wiki/Ratón_(informática)"
+        elif self._objeto == "teclado":
+            url = "https://es.wikipedia.org/wiki/Teclado_(informática)"
+
+        self.response = requests.get(url, timeout=10)
+        if self.response.status_code != 200:
+            raise ConnectionError("No se pudo conectar")  
+        self.soup=BeautifulSoup(self.response.text, "html.parser")
+  ```
