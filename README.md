@@ -484,3 +484,77 @@ El scraper de wikipedia es muy sencillo simplemente se obtiene la informacion co
             raise ConnectionError("No se pudo conectar")  
         self.soup=BeautifulSoup(self.response.text, "html.parser")
   ```
+## Diagrama de Clase 3: Menus para aplicar filtros durante la busqueda de productos
+```mermaid
+---
+title: Menus
+---
+classDiagram
+    class Menu {
+        - options
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuFiltered {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuFilters {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuFiltersPrice {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuMarcas {
+        + __init__(options)
+        + display()
+        + select(marcas_list)
+    }
+
+    class MenuPages {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuProducts {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    MenuFiltered --|> Menu
+    MenuFilters --|> Menu
+    MenuFiltersPrice --|> Menu
+    MenuMarcas --|> Menu
+    MenuPages --|> Menu
+    MenuProducts --|> Menu
+```
+## Menu
+Con el fin de proporcionar resultados específicos, optamos por proporcionar una serie de clases que heredan directamente de la clase abstracta Menu
+``` python
+class Menu:
+    def __init__(self, options):
+        self.options = options
+    def display(self):
+        pass
+    def select(self):
+        pass
+```
+Los diferentes tipos de Menus que posee nuestro programa son
+- [Menu Pages]
+- [Menu Products]
+- [Menu Marcas]
+- [Menu Filters]
+- [Menu Filtered]
+- [Menu Filters Price Order]
