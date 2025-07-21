@@ -359,3 +359,5 @@ En este scrapper las list_c son mas comprensibles, que en los dos anteriores. Lo
             d.text.strip() if d.text.strip() else "0%" for d in descuentos
         ]
 ```
+## Como se guarda la informacion?
+Estos tres scrappers guardan la informacion en una estructura de python llamada named_tuple, que es la combinacion de un objeto con una tupla, esto se debe a que este dato permite organizar la informacion, sigue siendo liegro (es una tupla) y tambien es inmutable, una caracteristica buena para los scrappers. 
