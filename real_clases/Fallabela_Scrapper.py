@@ -9,7 +9,7 @@ from abstract_clases.abscract_clases import WebScrapperDinamico
 class FallabelaScrapper(WebScrapperDinamico):
     def __init__(self, objeto: str):
         super().__init__(objeto)
-        self.pagina="Fallabela"
+        self.__pagina = "Fallabela"
 
     def parsear_json(self) -> None:
         
@@ -23,6 +23,7 @@ class FallabelaScrapper(WebScrapperDinamico):
             url = "https://www.falabella.com.co/falabella-co/search?Ntt=teclado&"
 
         headers = {"User-Agent": "Mozilla/5.0"}
+        
         try:
             page = 1
             while True:
@@ -36,14 +37,14 @@ class FallabelaScrapper(WebScrapperDinamico):
                 script = soup.find("script", attrs={"id": "__NEXT_DATA__"})
                 raw_json = json.loads(script.get_text())
 
+                ##! En este codigo se encuentra el BREAK, el pq de esto se encuentra en el git
                 try:
                     productos = raw_json["props"]["pageProps"]["results"] 
-                except KeyError:             
+                except KeyError:
                     print(f"La pagina {page - 1} es la ultima pagina")
                     break
 
-                self.data.append(productos)
-
+                self.__data.append(productos)
                 page += 1
                 
         except (requests.exceptions.Timeout, requests.exceptions.ConnectTimeout) as error:
@@ -54,25 +55,24 @@ class FallabelaScrapper(WebScrapperDinamico):
     def buscar_nombre(self):
       
         try:
-            self.names=[
-            d_1["displayName"]
-            for Json in self.data
-            for d_1 in Json
-        ] 
+            self.__names = [
+                producto["displayName"]
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
         except Exception as error:
             print(f"Hay error {error}")
     
     def buscar_marca(self) -> list:
        
         try:
-            self.marcas=[
-            d_1["topSpecifications"][0]
-            if len(d_1["topSpecifications"]) != 0
-            else
-            "No se encontro la marca"
-            for Json in self.data
-            for d_1 in Json
-        ]
+            self.__marcas = [
+                producto["topSpecifications"][0]
+                if len(producto["topSpecifications"]) != 0
+                else "No se encontro la marca"
+                for lista_productos in self.__data
+                for producto in lista_productos
+            ]
         except Exception as error:
             print(f"Hay error {error}")
 
@@ -98,7 +98,7 @@ class FallabelaScrapper(WebScrapperDinamico):
             print(f"Hay error {error}")
 
     def buscar_descuento(self) -> list:
-       try:
+        try:
            self.descuentos=[
             d_1["discountBadge"]["label"]
             if "discountBadge" in d_1.keys()
@@ -107,8 +107,9 @@ class FallabelaScrapper(WebScrapperDinamico):
             for Json in self.data
             for d_1 in Json 
             ]
-       except Exception as error:
+        except Exception as error:
             print(f"Hay error {error}")
+   
 
     def crear_productos(self) -> list:
         self.products = []
@@ -126,7 +127,7 @@ class FallabelaScrapper(WebScrapperDinamico):
                 self.links[i],
                 "In stock"
             )
-            self.products.append(p)
+            self.__products.append(p)
 
     def mostrar_productos(self):
         for product in self.products:

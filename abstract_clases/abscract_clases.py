@@ -17,6 +17,11 @@ class WebScrapperEstatico(WebScrapper):
 
     def obtener_parrafos(self):
         pass
+
+    def crear_json(self):
+        pass
+    def mostrar_json(self):
+        pass
 class WebScrapperDinamico(WebScrapper):
     def __init__(self, objeto):
         super().__init__(objeto)

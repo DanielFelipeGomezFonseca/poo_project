@@ -11,6 +11,7 @@ class WikipediaScrapper(WebScrapperEstatico):
         super().__init__(objeto)
         self.pagina = "Wikipedia"
     
+    #! Funcion mas importante
     def parsear_pagina(self):
         if self._objeto == "audifonos":
             url = "https://es.wikipedia.org/wiki/Audífono"
@@ -24,6 +25,7 @@ class WikipediaScrapper(WebScrapperEstatico):
             raise ConnectionError("No se pudo conectar")  
         self.soup=BeautifulSoup(self.response.text, "html.parser")
   
+    #! Uso List_C
     def obtener_nombre_pagina(self):
         name=self.soup.find(id="firstHeading")
         self.name=name.string
@@ -34,8 +36,6 @@ class WikipediaScrapper(WebScrapperEstatico):
             tittle.text.strip()
             for tittle in tittles
         ]
-        print(self.titles)
-        print(len(self.titles))
 
     def obtener_parrafos(self):
         paragraphs=self.soup.find_all("p")
@@ -43,4 +43,10 @@ class WikipediaScrapper(WebScrapperEstatico):
             paragraph.text.strip()
             for paragraph in paragraphs
         ]
-        
+ 
+    #! Guardo info en un JSON
+    def crear_json(self):
+        self.dict={"Titulo": self.name, "Cabezales": self.titles , "Parrafos": self.paragraphs}
+    
+    def mostrar_json(self):
+        print(self.dict)
