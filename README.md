@@ -437,7 +437,7 @@ def crear_productos(self) -> list:
             self.products.append(p)
         return self.products
 ```
-# #Wikipedia (el verdadero scraper estatico)
+## Wikipedia (el verdadero scraper estatico)
 El scraper de wikipedia es muy sencillo simplemente se obtiene la informacion con requests (porque es estatico), y se busca dependiendo del html con BS4 (es diferente a Alkosto pq este no se puede acceder con requests)
 ```python
 
