@@ -7,7 +7,6 @@ import time
 from abstract_clases.abscract_clases import WebScrapperDinamico
 
 class AlkostoWebScrapper(WebScrapperDinamico):
-    #! Todos los atributos estan en privado, no se quiere q se accedan fuera de la clase
     def __init__(self, objeto: str):
         super().__init__(objeto)
         self.pagina = "Alkosto"
