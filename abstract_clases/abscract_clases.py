@@ -47,3 +47,11 @@ class WebScrapperDinamico(WebScrapper):
 
     def mostrar_productos(self):
         pass
+
+class Menu:
+    def __init__(self, options):
+        self.options = options
+    def display(self):
+        pass
+    def select(self):
+        pass

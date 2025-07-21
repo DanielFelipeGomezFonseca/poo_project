@@ -119,7 +119,7 @@ class PanamericanaScrapper(WebScrapperDinamico):
                 self.pagina,
                 self.names[i],
                 self.marcas[i],
-                self.precios[i],
+                int(self.precios[i]),
                 self.links[i],
                 self.disponibilidad[i]
             )
@@ -127,8 +127,17 @@ class PanamericanaScrapper(WebScrapperDinamico):
 
     def mostrar_productos(self):
         for product in self.products:
-<<<<<<< HEAD
-            print(product.precio)
-=======
-            print(product.nombre)
->>>>>>> 49be98605f221e2c182e4d9e7d66fbc46094db6a
+            print(product)
+
+    def compilar_precios(self):
+        precios = []
+        for product in self.products:
+            precios.append(product.precio)
+        return precios
+
+    def compilar_marcas(self):
+        marcas = []
+        for product in self.products:
+            if product.marca not in marcas:
+                marcas.append(product.marca)
+        return marcas

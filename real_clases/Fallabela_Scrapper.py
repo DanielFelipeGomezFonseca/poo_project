@@ -7,11 +7,11 @@ from abstract_clases.abscract_clases import WebScrapperDinamico
 
 
 class FallabelaScrapper(WebScrapperDinamico):
-   def __init__(self, objeto: str):
+    def __init__(self, objeto: str):
         super().__init__(objeto)
         self.pagina="Fallabela"
 
-   def parsear_json(self) -> None:
+    def parsear_json(self) -> None:
         
         self.data=[]
 
@@ -51,7 +51,7 @@ class FallabelaScrapper(WebScrapperDinamico):
         except KeyboardInterrupt as f_error:
             print(f"{f_error}")
 
-   def buscar_nombre(self):
+    def buscar_nombre(self):
       
         try:
             self.names=[
@@ -62,7 +62,7 @@ class FallabelaScrapper(WebScrapperDinamico):
         except Exception as error:
             print(f"Hay error {error}")
     
-   def buscar_marca(self) -> list:
+    def buscar_marca(self) -> list:
        
         try:
             self.marcas=[
@@ -76,7 +76,7 @@ class FallabelaScrapper(WebScrapperDinamico):
         except Exception as error:
             print(f"Hay error {error}")
 
-   def buscar_link(self) -> list:
+    def buscar_link(self) -> list:
        
        try:
             self.links=[
@@ -87,7 +87,7 @@ class FallabelaScrapper(WebScrapperDinamico):
        except Exception as error:
             print(f"Hay error {error}")
    
-   def buscar_precio(self) -> list:       
+    def buscar_precio(self) -> list:       
        try:
          self.precios=[
             d_1["prices"][0]["price"]
@@ -97,7 +97,7 @@ class FallabelaScrapper(WebScrapperDinamico):
        except Exception as error:
             print(f"Hay error {error}")
 
-   def buscar_descuento(self) -> list:
+    def buscar_descuento(self) -> list:
        try:
            self.descuentos=[
             d_1["discountBadge"]["label"]
@@ -110,22 +110,37 @@ class FallabelaScrapper(WebScrapperDinamico):
        except Exception as error:
             print(f"Hay error {error}")
 
-   def crear_productos(self) -> list:
+    def crear_productos(self) -> list:
         self.products = []
-        product = namedtuple(f"{self._objeto}", ["pagina","nombre", "marca", "precio","descuento", "link","disponibilidad" ])
+        product = namedtuple(f"{self._objeto}", ["pagina", "nombre", "marca", "precio", "descuento", "link", "disponibilidad"])
+
         for i in range(len(self.names)):
+            precio_limpio = int(self.precios[i][0].replace(".", ""))
+
             p = product(
                 self.pagina,
                 self.names[i],
                 self.marcas[i],
-                self.precios[i],
+                precio_limpio,
                 self.descuentos[i],
                 self.links[i],
                 "In stock"
-                
             )
             self.products.append(p)
 
-   def mostrar_productos(self):
+    def mostrar_productos(self):
         for product in self.products:
             print(product)
+
+    def compilar_precios(self):
+        precios = []
+        for product in self.products:
+            precios.append(product.precio)
+        return precios
+
+    def compilar_marcas(self):
+        marcas = []
+        for product in self.products:
+            if product.marca not in marcas:
+                marcas.append(product.marca)
+        return marcas
