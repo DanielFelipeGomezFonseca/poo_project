@@ -122,6 +122,7 @@ MostrarProductos --> Filtro : usa
 Usuario --> MostrarProductos : usa
 
 ```
+## Diagrama de Clase 3: Menus para aplicar filtros durante la busqueda de productos
 ```mermaid
 ---
 title: Menus
