@@ -122,7 +122,61 @@ MostrarProductos --> Filtro : usa
 Usuario --> MostrarProductos : usa
 
 ```
+```mermaid
+---
+title: Menus
+---
+classDiagram
+    class Menu {
+        - options
+        + __init__(options)
+        + display()
+        + select()
+    }
 
+    class MenuFiltered {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuFilters {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuFiltersPrice {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuMarcas {
+        + __init__(options)
+        + display()
+        + select(marcas_list)
+    }
+
+    class MenuPages {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    class MenuProducts {
+        + __init__(options)
+        + display()
+        + select()
+    }
+
+    MenuFiltered --|> Menu
+    MenuFilters --|> Menu
+    MenuFiltersPrice --|> Menu
+    MenuMarcas --|> Menu
+    MenuPages --|> Menu
+    MenuProducts --|> Menu
+```
 ## Librerias fundamentales
 ### Beautif Soup + Requests
 
