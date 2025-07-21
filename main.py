@@ -64,14 +64,14 @@ if selected_page == "Panamericana":
 
             for p in filtered_products:
                 print(p)
-                opt = ["Si","No"]
-                for i in range(len(opt)):
-                    print(str(i+1),opt[i])
-                save_option = input("¿Deseas guardar toda esta información?: ")
-                if save_option == "1":
-                    data_export = [prod._asdict() for prod in filtered_products]
-                    with open(f'{selected_product}_exportados.json', 'w', encoding='utf-8') as f:
-                        json.dump(data_export, f, ensure_ascii=False, indent=4)
+            opt = ["Si","No"]
+            for i in range(len(opt)):
+                print(str(i+1),opt[i])
+            save_option = input("¿Deseas guardar toda esta información?: ")
+            if save_option == "1":
+                data_export = [prod._asdict() for prod in filtered_products]
+                with open(f'{selected_product}_exportados.json', 'w', encoding='utf-8') as f:
+                    json.dump(data_export, f, ensure_ascii=False, indent=4)
 
 # Funciones para filtrar PRECIOS
         if selected_filtered == "precio":
@@ -184,14 +184,14 @@ if selected_page == "Fallabela":
 
             for p in filtered_products:
                 print(p)
-                opt = ["Si","No"]
-                for i in range(len(opt)):
-                    print(str(i+1),opt[i])
-                save_option = input("¿Deseas guardar toda esta información?: ")
-                if save_option == "1":
-                    data_export = [prod._asdict() for prod in filtered_products]
-                    with open(f'{selected_product}_exportados.json', 'w', encoding='utf-8') as f:
-                        json.dump(data_export, f, ensure_ascii=False, indent=4)
+            opt = ["Si","No"]
+            for i in range(len(opt)):
+                print(str(i+1),opt[i])
+            save_option = input("¿Deseas guardar toda esta información?: ")
+            if save_option == "1":
+                data_export = [prod._asdict() for prod in filtered_products]
+                with open(f'{selected_product}_exportados.json', 'w', encoding='utf-8') as f:
+                    json.dump(data_export, f, ensure_ascii=False, indent=4)
 
 # Funciones para filtrar PRECIOS
         if selected_filtered == "precio":
@@ -304,14 +304,14 @@ if selected_page == "Alkosto":
 
             for p in filtered_products:
                 print(p)
-                opt = ["Si","No"]
-                for i in range(len(opt)):
-                    print(str(i+1),opt[i])
-                save_option = input("¿Deseas guardar toda esta información?: ")
-                if save_option == "1":
-                    data_export = [prod._asdict() for prod in filtered_products]
-                    with open(f'{selected_product}_exportados.json', 'w', encoding='utf-8') as f:
-                        json.dump(data_export, f, ensure_ascii=False, indent=4)
+            opt = ["Si","No"]
+            for i in range(len(opt)):
+                print(str(i+1),opt[i])
+            save_option = input("¿Deseas guardar toda esta información?: ")
+            if save_option == "1":
+                data_export = [prod._asdict() for prod in filtered_products]
+                with open(f'{selected_product}_exportados.json', 'w', encoding='utf-8') as f:
+                    json.dump(data_export, f, ensure_ascii=False, indent=4)
 
 # Funciones para filtrar PRECIOS
         if selected_filtered == "precio":
