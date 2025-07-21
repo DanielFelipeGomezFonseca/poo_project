@@ -317,7 +317,26 @@ def buscar_marca(self) -> list:
 ### While y Break
 Se hizo algo similar de lo que se hizo con Panamericana, solo que en Falabela cuando las paginas se acaban, la llave del diccionario que contiene al JSON de toda la informacion no existe y por eso se usa el break con un Key error
 
-# Alkosto Scrapper (dinamico de verdad)
+## Alkosto Scrapper (dinamico de verdad)
 A diferencia de los dos anteriores, en alkosto no se puede usar request, porque la pagina carga todo desde un archivo dinamico JSON. Por lo que toca utilizar selenium, Posteriormente se muestra la funcion para simular chrome y extraer los datos. 
+```python
 
+class AlkostoWebScrapper(WebScrapperDinamico):
+    def __init__(self, objeto: str):
+        super().__init__(objeto)
+        self.pagina = "Alkosto"
+
+    ##! Aqui pongo las opciones del "Web Driver"
+    def parsear_json(self):
+        option = Options()
+        option.add_argument("--headless")
+        option.add_argument("--log-level=3")
+        self.driver = webdriver.Chrome(options=option)
+
+        if self._objeto == "audifonos":
+            self.driver.get("https://www.alkosto.com/search?text=audifonos")
+            time.sleep(5)
+```
+### Metodo para buscar
+Con este scraper se busca sobre la estructura HTML, entonces se puede buscar por "clase" o por "path", en este scrapper se utiliza ambos. Esa es la principal diferencia entre los dos primeros y este 
 
