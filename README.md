@@ -173,7 +173,7 @@ Relacion entre scrappers
     class PanamericanaScraper
     class AlkostoScraper
 
-    class FalabellaScraper{
+    class FalabellaScraper
 
     WebScraper <|-- WebScraperEstatico
     WebScraper <|-- WebScraperDinamico
