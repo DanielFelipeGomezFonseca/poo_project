@@ -175,7 +175,7 @@ Relacion entre scrappers
   +guardar_producto(p: Producto) -> list[Producto]
 }
 
-    class WikipediaScraper{
+    class WikipediaScraper
 
     class PanamericanaScraper
     class AlkostoScraper
