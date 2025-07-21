@@ -158,12 +158,25 @@ Relacion entre scrappers
     }
 
     class WebScraperEstatico
-    class WebScraperDinamico
+    class WebScraperDinamico{
+  __init__(objeto_scrapear: str) 
+  +parsear_json() -> Json
+  +buscar_nombre() -> str
+  +buscar_marca() -> str
+  +buscar_precio() -> float
+  +buscar_descuentos() -> float
+  +crear_producto() -> Producto
+  +guardar_producto(p: Producto) -> list[Producto]
+}
 
     class WikipediaScraper
-    class PanamericanaScraper
-    class AlkostoScraper
-    class FalabellaScraper
+    class PanamericanaScraper{
+}
+    class AlkostoScraper{
+}
+
+    class FalabellaScraper{
+}
 
     WebScraper <|-- WebScraperEstatico
     WebScraper <|-- WebScraperDinamico
