@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 from collections import namedtuple
 import requests
-import json
 
 from abstract_clases.abscract_clases import WebScrapperEstatico
 
