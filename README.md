@@ -349,3 +349,13 @@ Con este scraper se busca sobre la estructura HTML, entonces se puede buscar por
 ```
 ### List_C
 En este scrapper las list_c son mas comprensibles, que en los dos anteriores. Lo unico raro es el if, este si en el "contenedor" existe algo (ya sea un str, un int lo que sea) saca un True si no saca un false
+```python
+
+    def buscar_descuento(self):
+        descuentos = self.driver.find_elements(By.CLASS_NAME, "label-offer")
+        if not descuentos:
+            raise Exception("No se encontró ningún descuento.")
+        self.descuentos = [
+            d.text.strip() if d.text.strip() else "0%" for d in descuentos
+        ]
+```
