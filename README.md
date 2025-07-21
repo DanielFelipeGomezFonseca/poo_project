@@ -337,7 +337,7 @@ class AlkostoWebScrapper(WebScrapperDinamico):
             self.driver.get("https://www.alkosto.com/search?text=audifonos")
             time.sleep(5)
 ```
-### Metodo para buscar
+### Como se busca?
 Con este scraper se busca sobre la estructura HTML, entonces se puede buscar por "clase" o por "path", en este scrapper se utiliza ambos. Esa es la principal diferencia entre los dos primeros y este 
 ```python
 
@@ -347,3 +347,5 @@ Con este scraper se busca sobre la estructura HTML, entonces se puede buscar por
             raise Exception("No se encontró ninguna marca.")
         self.marcas = [marca.text for marca in marcas]
 ```
+### List_C
+En este scrapper las list_c son mas comprensibles, que en los dos anteriores. Lo unico raro es el if, este si en el "contenedor" existe algo (ya sea un str, un int lo que sea) saca un True si no saca un false
