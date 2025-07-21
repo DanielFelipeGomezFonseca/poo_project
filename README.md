@@ -202,6 +202,10 @@ Esto es util para cuando requests no funciona, debido a que en algunas paginas, 
 Se mostraran aspectos importantes de la solucion definitiva:
 # Diagramas de clase
 ```mermaid
+---
+title: Scrapers
+---
+classDiagram
 
 Relacion entre scrappers
     class WebScraper {
