@@ -157,7 +157,13 @@ Relacion entre scrappers
         <<abstract>>
     }
 
-    class WebScraperEstatico
+    class WebScraperEstatico {
+  __init__(objeto_scrapear: str) 
+  buscar_titulo()
+  buscar_headings()
+  buscar_parrafos()
+
+}
     class WebScraperDinamico {
   __init__(objeto_scrapear: str) 
   +parsear_json() -> Json
@@ -169,7 +175,8 @@ Relacion entre scrappers
   +guardar_producto(p: Producto) -> list[Producto]
 }
 
-    class WikipediaScraper
+    class WikipediaScraper{
+
     class PanamericanaScraper
     class AlkostoScraper
 
